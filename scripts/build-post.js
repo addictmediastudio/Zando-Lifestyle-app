@@ -43,6 +43,13 @@ try {
     fs.writeFileSync(indexHtml, '<!DOCTYPE html><html><body>TanStack Start Worker handles this.</body></html>');
   }
 
+  // 4. Delete auto-generated wrangler.json in client dir to avoid Cloudflare Pages validation errors
+  const clientWranglerJson = path.join(clientDir, 'wrangler.json');
+  if (fs.existsSync(clientWranglerJson)) {
+    console.log('Deleting auto-generated wrangler.json from client directory...');
+    fs.unlinkSync(clientWranglerJson);
+  }
+
   console.log('Post-build script completed successfully.');
 } catch (err) {
   console.error('Error in post-build script:', err);
