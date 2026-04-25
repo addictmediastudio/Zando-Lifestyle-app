@@ -16,14 +16,27 @@ try {
     process.exit(1);
   }
 
-  const src = path.join(serverDir, workerFile);
-  const dest = path.join(clientDir, '_worker.js');
+  const srcWorker = path.join(serverDir, workerFile);
+  const destWorker = path.join(clientDir, '_worker.js');
   
-  console.log(`Copying ${src} to ${dest}...`);
-  fs.copyFileSync(src, dest);
-  
-  // Also create a dummy index.html if it doesn't exist, 
-  // sometimes Cloudflare Pages needs it to avoid 404s on certain configurations
+  console.log(`Copying ${srcWorker} to ${destWorker}...`);
+  fs.copyFileSync(srcWorker, destWorker);
+
+  // 2. Copy server assets to client assets directory
+  const serverAssetsDir = path.join(serverDir, 'assets');
+  const clientAssetsDir = path.join(clientDir, 'assets');
+
+  if (fs.existsSync(serverAssetsDir)) {
+    console.log('Copying server assets to client assets directory...');
+    const assetFiles = fs.readdirSync(serverAssetsDir);
+    for (const file of assetFiles) {
+      const srcAsset = path.join(serverAssetsDir, file);
+      const destAsset = path.join(clientAssetsDir, file);
+      fs.copyFileSync(srcAsset, destAsset);
+    }
+  }
+
+  // 3. Create dummy index.html
   const indexHtml = path.join(clientDir, 'index.html');
   if (!fs.existsSync(indexHtml)) {
     console.log('Creating dummy index.html...');
