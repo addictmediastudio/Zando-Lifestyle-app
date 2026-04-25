@@ -44,14 +44,7 @@ try {
     console.log(`Copied ${assetFiles.length} server asset files.`);
   }
 
-  // 4. Delete auto-generated wrangler.json from client dir
-  const clientWranglerJson = path.join(clientDir, "wrangler.json");
-  if (fs.existsSync(clientWranglerJson)) {
-    console.log("Deleting auto-generated wrangler.json from client directory...");
-    fs.unlinkSync(clientWranglerJson);
-  }
-
-  // 4.5. Create _routes.json for Cloudflare Pages advanced routing
+  // (wrangler.json deletion removed to prevent Cloudflare Pages deployment error)
   const routesJsonPath = path.join(clientDir, "_routes.json");
   console.log("Creating _routes.json...");
   fs.writeFileSync(
