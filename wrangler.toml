@@ -1,0 +1,8 @@
+name = "zando-lifestyle"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Build settings (for local development and information)
+# Note: Production build settings must be set in the Cloudflare Dashboard
+# Build Command: npm run build
+# Build Output Directory: dist/client
