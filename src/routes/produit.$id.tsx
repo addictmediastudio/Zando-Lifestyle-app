@@ -77,11 +77,11 @@ function ProductPage() {
 
       <div className="grid gap-10 md:grid-cols-2">
         <div className="space-y-4">
-          <div className="relative overflow-hidden rounded-2xl bg-muted shadow-sm">
+          <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm border border-border">
             <img
               src={selectedImage}
               alt={product.name}
-              className="aspect-[4/5] w-full object-cover object-top transition-all duration-300"
+              className="aspect-square w-full object-contain p-4 transition-all duration-300"
             />
             {discount > 0 && (
               <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1.5 text-sm font-bold text-primary-foreground">
@@ -96,7 +96,7 @@ function ProductPage() {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img)}
-                  className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                  className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-white transition-all ${
                     selectedImage === img
                       ? "border-primary scale-95 shadow-md"
                       : "border-transparent hover:border-muted-foreground/30"
@@ -105,7 +105,7 @@ function ProductPage() {
                   <img
                     src={img}
                     alt={`Thumbnail ${idx}`}
-                    className="h-full w-full object-cover object-top"
+                    className="h-full w-full object-contain p-1"
                   />
                 </button>
               ))}
@@ -142,7 +142,7 @@ function ProductPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(img)}
-                    className={`h-12 w-12 overflow-hidden rounded-full border-2 transition-all ${
+                    className={`h-12 w-12 overflow-hidden rounded-full border-2 bg-white transition-all ${
                       selectedImage === img
                         ? "border-primary ring-2 ring-primary/20"
                         : "border-border hover:border-muted-foreground/50"
@@ -151,7 +151,7 @@ function ProductPage() {
                     <img
                       src={img}
                       alt={`Model ${idx}`}
-                      className="h-full w-full object-cover object-top"
+                      className="h-full w-full object-contain p-0.5"
                     />
                   </button>
                 ))}

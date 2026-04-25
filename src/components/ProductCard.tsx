@@ -32,12 +32,12 @@ export function ProductCard({ product }: { product: Product }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted">
+      <div className="relative aspect-square overflow-hidden rounded-xl bg-white">
         <img
           src={allImages[currentIdx]}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-cover object-top transition-opacity duration-500"
+          className="h-full w-full object-contain p-2 transition-opacity duration-500"
         />
         {allImages.length > 1 && (
           <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1">
