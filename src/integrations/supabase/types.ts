@@ -97,6 +97,7 @@ export type Database = {
           name: string;
           old_price: number | null;
           popularity: number;
+          position: number | null;
           price: number;
           updated_at: string;
         };
@@ -111,6 +112,7 @@ export type Database = {
           name: string;
           old_price?: number | null;
           popularity?: number;
+          position?: number | null;
           price: number;
           updated_at?: string;
         };
@@ -125,6 +127,7 @@ export type Database = {
           name?: string;
           old_price?: number | null;
           popularity?: number;
+          position?: number | null;
           price?: number;
           updated_at?: string;
         };
@@ -226,8 +229,18 @@ export type Database = {
       order_status: "En préparation" | "Expédiée" | "Livrée" | "Annulée";
       product_category:
         | "Mode"
+        | "Vêtements"
+        | "T-shirts"
+        | "Pantalons"
+        | "Robes"
+        | "Sous-vêtements"
+        | "Chaussures"
+        | "Sneakers"
+        | "Sandales"
         | "Cosmétiques"
         | "Accessoires"
+        | "Sacs"
+        | "Bijoux"
         | "Électronique"
         | "Maison"
         | "Sport"
@@ -361,8 +374,18 @@ export const Constants = {
       order_status: ["En préparation", "Expédiée", "Livrée", "Annulée"],
       product_category: [
         "Mode",
+        "Vêtements",
+        "T-shirts",
+        "Pantalons",
+        "Robes",
+        "Sous-vêtements",
+        "Chaussures",
+        "Sneakers",
+        "Sandales",
         "Cosmétiques",
         "Accessoires",
+        "Sacs",
+        "Bijoux",
         "Électronique",
         "Maison",
         "Sport",

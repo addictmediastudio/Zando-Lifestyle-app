@@ -23,6 +23,7 @@ type AdminCtx = {
   addProduct: (p: Omit<Product, "id"> & { id?: string }) => Promise<void>;
   updateProduct: (id: string, patch: Partial<Product>) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
+  reorderProducts: (orderedIds: string[]) => Promise<void>;
 
   promos: Promo[];
   addPromo: (p: Promo) => Promise<void>;
@@ -52,6 +53,7 @@ function rowToProduct(r: any): Product {
     description: r.description ?? "",
     popularity: r.popularity ?? 50,
     featured: r.featured ?? false,
+    position: r.position ?? 0,
   };
 }
 
@@ -94,11 +96,17 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   // Load products + promos (public read)
   const loadCatalogAndPromos = async () => {
-    const [{ data: prods }, { data: pr }] = await Promise.all([
-      supabase.from("products").select("*").order("created_at", { ascending: false }),
-      supabase.from("promos").select("*").order("created_at", { ascending: false }),
-    ]);
-    setProducts((prods ?? []).map(rowToProduct));
+    let prodsRes = await supabase.from("products").select("*").order("position", { ascending: true }).order("created_at", { ascending: false });
+    
+    // Fallback if 'position' column doesn't exist yet
+    if (prodsRes.error && prodsRes.error.message.includes("position")) {
+      prodsRes = await supabase.from("products").select("*").order("created_at", { ascending: false });
+      console.warn("La colonne 'position' n'existe pas encore. Veuillez l'ajouter dans Supabase.");
+    }
+
+    const { data: pr } = await supabase.from("promos").select("*").order("created_at", { ascending: false });
+    
+    setProducts((prodsRes.data ?? []).map(rowToProduct));
     setPromos((pr ?? []).map((r: any) => ({ code: r.code, percent: r.percent, active: r.active })));
   };
 
@@ -239,6 +247,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       description: p.description,
       popularity: p.popularity,
       featured: p.featured ?? false,
+      position: p.position ?? products.length + 1,
     });
     if (error) throw new Error(error.message);
     await loadCatalogAndPromos();
@@ -255,6 +264,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       description?: string;
       popularity?: number;
       featured?: boolean;
+      position?: number | null;
     } = {};
     if (patch.name !== undefined) dbPatch.name = patch.name;
     if (patch.price !== undefined) dbPatch.price = patch.price;
@@ -265,8 +275,29 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     if (patch.description !== undefined) dbPatch.description = patch.description;
     if (patch.popularity !== undefined) dbPatch.popularity = patch.popularity;
     if (patch.featured !== undefined) dbPatch.featured = patch.featured;
+    if (patch.position !== undefined) dbPatch.position = patch.position;
     const { error } = await supabase.from("products").update(dbPatch).eq("id", id);
     if (error) throw new Error(error.message);
+    await loadCatalogAndPromos();
+  };
+
+  const reorderProducts: AdminCtx["reorderProducts"] = async (orderedIds) => {
+    // We update all products in sequence (or we could use rpc, but sequence is fine for small catalog)
+    // To speed up UI, we can optimistically update
+    setProducts((prev) => {
+      const copy = [...prev];
+      copy.sort((a, b) => {
+        const aIdx = orderedIds.indexOf(a.id);
+        const bIdx = orderedIds.indexOf(b.id);
+        return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
+      });
+      return copy;
+    });
+
+    const promises = orderedIds.map((id, index) => 
+      supabase.from("products").update({ position: index + 1 }).eq("id", id)
+    );
+    await Promise.all(promises);
     await loadCatalogAndPromos();
   };
 
@@ -317,6 +348,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         addProduct,
         updateProduct,
         deleteProduct,
+        reorderProducts,
         promos,
         addPromo,
         updatePromo,

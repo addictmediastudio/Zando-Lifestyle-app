@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent, Fragment } from "react";
 import { toast } from "sonner";
 import {
   LayoutDashboard,
@@ -16,6 +16,8 @@ import {
   Upload,
   ImagePlus,
   Star,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 import { useAdmin, ADMIN_DEMO_CREDENTIALS } from "@/lib/admin";
 import { categories, formatFCFA, type Category, type Product } from "@/lib/products";
@@ -354,9 +356,35 @@ function OrdersTab() {
 }
 
 function ProductsTab() {
-  const { products, addProduct, updateProduct, deleteProduct } = useAdmin();
+  const { products, addProduct, updateProduct, deleteProduct, reorderProducts } = useAdmin();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
+
+  const moveUp = async (productId: string, category: string) => {
+    const catProducts = products.filter(p => p.category === category);
+    const catIdx = catProducts.findIndex(p => p.id === productId);
+    if (catIdx <= 0) return;
+    const prevProduct = catProducts[catIdx - 1];
+    
+    const newOrder = products.map((p) => p.id);
+    const idx1 = newOrder.indexOf(productId);
+    const idx2 = newOrder.indexOf(prevProduct.id);
+    [newOrder[idx1], newOrder[idx2]] = [newOrder[idx2], newOrder[idx1]];
+    await reorderProducts(newOrder);
+  };
+
+  const moveDown = async (productId: string, category: string) => {
+    const catProducts = products.filter(p => p.category === category);
+    const catIdx = catProducts.findIndex(p => p.id === productId);
+    if (catIdx === -1 || catIdx === catProducts.length - 1) return;
+    const nextProduct = catProducts[catIdx + 1];
+
+    const newOrder = products.map((p) => p.id);
+    const idx1 = newOrder.indexOf(productId);
+    const idx2 = newOrder.indexOf(nextProduct.id);
+    [newOrder[idx1], newOrder[idx2]] = [newOrder[idx2], newOrder[idx1]];
+    await reorderProducts(newOrder);
+  };
 
   return (
     <div className="space-y-4">
@@ -394,68 +422,98 @@ function ProductsTab() {
             </tr>
           </thead>
           <tbody>
-            {products.map((p) =>
-              editingId === p.id ? (
-                <tr key={p.id} className="border-t border-border bg-muted/20">
-                  <td colSpan={6} className="p-4">
-                    <ProductForm
-                      initial={p}
-                      onCancel={() => setEditingId(null)}
-                      onSave={async (patch) => {
-                        await updateProduct(p.id, patch);
-                        setEditingId(null);
-                        toast.success(`"${patch.name}" mis à jour`);
-                      }}
-                    />
-                  </td>
-                </tr>
-              ) : (
-                <tr key={p.id} className="border-t border-border">
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={p.image}
-                        alt={p.name}
-                        className="h-10 w-10 rounded-md object-cover"
-                      />
-                      <div>
-                        <div className="font-medium">{p.name}</div>
-                        <div className="text-xs text-muted-foreground">{p.id}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">{p.category}</td>
-                  <td className="px-4 py-3 font-semibold">{formatFCFA(p.price)}</td>
-                  <td className="px-4 py-3 text-muted-foreground">
-                    {p.oldPrice ? formatFCFA(p.oldPrice) : "—"}
-                  </td>
-                  <td className="px-4 py-3">{p.featured ? "✓" : "—"}</td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="inline-flex gap-1">
-                      <button
-                        onClick={() => setEditingId(p.id)}
-                        className="grid h-8 w-8 place-items-center rounded-md border border-border hover:bg-muted"
-                        aria-label="Modifier"
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (confirm(`Supprimer "${p.name}" ?`)) {
-                            deleteProduct(p.id);
-                            toast.success("Produit supprimé");
-                          }
-                        }}
-                        className="grid h-8 w-8 place-items-center rounded-md border border-destructive/40 text-destructive hover:bg-destructive/10"
-                        aria-label="Supprimer"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ),
-            )}
+            {categories.map((c) => {
+              const catProducts = products.filter((p) => p.category === c);
+              if (catProducts.length === 0) return null;
+
+              return (
+                <Fragment key={c}>
+                  <tr>
+                    <td colSpan={6} className="bg-muted/30 px-4 py-2 font-display text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                      {c}
+                    </td>
+                  </tr>
+                  {catProducts.map((p, catIdx) =>
+                    editingId === p.id ? (
+                      <tr key={p.id} className="border-t border-border bg-muted/20">
+                        <td colSpan={6} className="p-4">
+                          <ProductForm
+                            initial={p}
+                            onCancel={() => setEditingId(null)}
+                            onSave={async (patch) => {
+                              await updateProduct(p.id, patch);
+                              setEditingId(null);
+                              toast.success(`"${patch.name}" mis à jour`);
+                            }}
+                          />
+                        </td>
+                      </tr>
+                    ) : (
+                      <tr key={p.id} className="border-t border-border">
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={p.image}
+                              alt={p.name}
+                              className="h-10 w-10 rounded-md object-cover"
+                            />
+                            <div>
+                              <div className="font-medium">{p.name}</div>
+                              <div className="text-xs text-muted-foreground">{p.id}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3">{p.category}</td>
+                        <td className="px-4 py-3 font-semibold">{formatFCFA(p.price)}</td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {p.oldPrice ? formatFCFA(p.oldPrice) : "—"}
+                        </td>
+                        <td className="px-4 py-3">{p.featured ? "✓" : "—"}</td>
+                        <td className="px-4 py-3 text-right">
+                          <div className="inline-flex items-center gap-1">
+                            <button
+                              onClick={() => moveUp(p.id, p.category)}
+                              disabled={catIdx === 0}
+                              className="grid h-8 w-8 place-items-center rounded-md border border-border hover:bg-muted disabled:opacity-30 disabled:hover:bg-transparent"
+                              aria-label="Monter"
+                            >
+                              <ArrowUp className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => moveDown(p.id, p.category)}
+                              disabled={catIdx === catProducts.length - 1}
+                              className="grid h-8 w-8 place-items-center rounded-md border border-border hover:bg-muted disabled:opacity-30 disabled:hover:bg-transparent"
+                              aria-label="Descendre"
+                            >
+                              <ArrowDown className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => setEditingId(p.id)}
+                              className="grid h-8 w-8 place-items-center rounded-md border border-border hover:bg-muted ml-2"
+                              aria-label="Modifier"
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (confirm(`Supprimer "${p.name}" ?`)) {
+                                  deleteProduct(p.id);
+                                  toast.success("Produit supprimé");
+                                }
+                              }}
+                              className="grid h-8 w-8 place-items-center rounded-md border border-destructive/40 text-destructive hover:bg-destructive/10"
+                              aria-label="Supprimer"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ),
+                  )}
+                </Fragment>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -477,7 +535,7 @@ function ProductForm({
     name: initial?.name ?? "",
     price: initial?.price ?? 0,
     oldPrice: initial?.oldPrice ?? 0,
-    category: (initial?.category ?? "Mode") as Category,
+    category: (initial?.category ?? "Vêtements") as Category,
     description: initial?.description ?? "",
     popularity: initial?.popularity ?? 50,
     featured: initial?.featured ?? false,

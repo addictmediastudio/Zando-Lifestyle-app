@@ -8,9 +8,18 @@ import lipstick from "@/assets/p-lipstick.jpg";
 import hoodie from "@/assets/p-hoodie.jpg";
 
 export type Category =
-  | "Mode"
+  | "Vêtements"
+  | "T-shirts"
+  | "Pantalons"
+  | "Robes"
+  | "Sous-vêtements"
+  | "Chaussures"
+  | "Sneakers"
+  | "Sandales"
   | "Cosmétiques"
   | "Accessoires"
+  | "Sacs"
+  | "Bijoux"
   | "Électronique"
   | "Maison"
   | "Sport"
@@ -27,6 +36,7 @@ export type Product = {
   description: string;
   popularity: number; // 0-100
   featured?: boolean;
+  position?: number;
 };
 
 export const products: Product[] = [
@@ -35,23 +45,25 @@ export const products: Product[] = [
     name: "Bomber Signature Orange",
     price: 38000,
     oldPrice: 48000,
-    category: "Mode",
+    category: "Vêtements",
     image: jacket,
     description:
       "Bomber technique en nylon hydrofuge, doublure intérieure douce, finition premium signée ZANDO. Une pièce statement pour affirmer votre style.",
     popularity: 95,
     featured: true,
+    position: 1,
   },
   {
     id: "sneakers-air",
     name: "Sneakers Air Lifestyle",
     price: 45000,
-    category: "Mode",
+    category: "Chaussures",
     image: sneakers,
     description:
       "Sneakers premium avec semelle à coussin d'air, cuir respirant et touche orange iconique. Confort toute la journée.",
     popularity: 88,
     featured: true,
+    position: 2,
   },
   {
     id: "serum-glow",
@@ -64,6 +76,7 @@ export const products: Product[] = [
       "Sérum concentré à la vitamine C pour un teint éclatant et uniforme. Formule légère, absorption rapide.",
     popularity: 80,
     featured: true,
+    position: 3,
   },
   {
     id: "leather-bag",
@@ -75,6 +88,7 @@ export const products: Product[] = [
       "Sac à main en cuir pleine fleur, finitions cousues main. Élégance intemporelle pour toutes vos occasions.",
     popularity: 92,
     featured: true,
+    position: 4,
   },
   {
     id: "gold-watch",
@@ -86,6 +100,7 @@ export const products: Product[] = [
     description:
       "Montre dorée au design épuré, mouvement précis, bracelet acier. Le luxe accessible.",
     popularity: 75,
+    position: 5,
   },
   {
     id: "aviator-sun",
@@ -95,6 +110,7 @@ export const products: Product[] = [
     image: sunglasses,
     description: "Lunettes de soleil aviator avec verres polarisés UV400 et monture métal premium.",
     popularity: 70,
+    position: 6,
   },
   {
     id: "matte-lipstick",
@@ -104,26 +120,31 @@ export const products: Product[] = [
     image: lipstick,
     description: "Rouge à lèvres mat longue tenue, hydratant, couleur intense qui ne file pas.",
     popularity: 65,
+    position: 7,
   },
   {
     id: "hoodie-noir",
     name: "Hoodie Oversized Noir",
     price: 28000,
-    category: "Mode",
+    category: "Vêtements",
     image: hoodie,
     description: "Hoodie oversized en coton brossé épais, coupe streetwear, label orange ZANDO.",
     popularity: 85,
+    position: 8,
   },
 ];
 
 export const categories: Category[] = [
-  "Mode",
+  "Vêtements",
+  "Sous-vêtements",
+  "Chaussures",
+  "Sneakers",
+  "Sandales",
   "Cosmétiques",
   "Accessoires",
+  "Sacs",
+  "Bijoux",
   "Électronique",
-  "Maison",
-  "Sport",
-  "Enfants",
 ];
 
 export const formatFCFA = (n: number) => new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
@@ -148,5 +169,6 @@ export const fetchProductFromSupabase = async (id: string): Promise<Product | nu
     description: data.description ?? "",
     popularity: data.popularity ?? 50,
     featured: data.featured ?? false,
+    position: data.position ?? 0,
   };
 };

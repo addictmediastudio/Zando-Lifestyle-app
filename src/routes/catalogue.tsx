@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const searchSchema = z.object({
   cat: fallback(
     z
-      .enum(["Mode", "Cosmétiques", "Accessoires", "Électronique", "Maison", "Sport", "Enfants"])
+      .enum(["Vêtements", "T-shirts", "Pantalons", "Robes", "Sous-vêtements", "Chaussures", "Sneakers", "Sandales", "Cosmétiques", "Accessoires", "Sacs", "Bijoux", "Électronique", "Maison", "Sport", "Enfants"])
       .optional(),
     undefined,
   ).default(undefined),
@@ -38,7 +38,7 @@ function CataloguePage() {
   const { cat } = Route.useSearch();
   const navigate = Route.useNavigate();
   const [query, setQuery] = useState("");
-  const [sort, setSort] = useState<"pop" | "price-asc" | "price-desc">("pop");
+  const [sort, setSort] = useState<"position" | "price-asc" | "price-desc">("position");
   const [maxPrice, setMaxPrice] = useState(100000);
 
   const filtered = useMemo(() => {
@@ -46,7 +46,7 @@ function CataloguePage() {
     if (cat) list = list.filter((p) => p.category === cat);
     if (query.trim()) list = list.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
     list = list.filter((p) => p.price <= maxPrice);
-    if (sort === "pop") list.sort((a, b) => b.popularity - a.popularity);
+    if (sort === "position") list.sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
     if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
     if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
     return list;
@@ -122,7 +122,7 @@ function CataloguePage() {
             onChange={(e) => setSort(e.target.value as typeof sort)}
             className="rounded-full border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
           >
-            <option value="pop">Popularité</option>
+            <option value="position">Ordre par défaut</option>
             <option value="price-asc">Prix croissant</option>
             <option value="price-desc">Prix décroissant</option>
           </select>
@@ -134,10 +134,24 @@ function CataloguePage() {
           Aucun produit ne correspond à votre recherche.
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
-          {filtered.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
+        <div className="space-y-16">
+          {categories.map((c) => {
+            const catProducts = filtered.filter((p) => p.category === c);
+            if (catProducts.length === 0) return null;
+            return (
+              <div key={c}>
+                <div className="mb-6 flex items-center gap-4">
+                  <h2 className="font-display text-2xl font-bold">{c}</h2>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+                  {catProducts.map((p) => (
+                    <ProductCard key={p.id} product={p} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
