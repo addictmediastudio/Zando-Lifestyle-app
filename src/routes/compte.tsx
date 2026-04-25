@@ -1,7 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
-import { LogOut, Package, ShoppingBag, User as UserIcon, Mail, Phone, MapPin, Calendar, Eye, EyeOff } from "lucide-react";
+import {
+  LogOut,
+  Package,
+  ShoppingBag,
+  User as UserIcon,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth, type OrderStatus } from "@/lib/auth";
 import { formatFCFA } from "@/lib/products";
@@ -12,9 +23,16 @@ export const Route = createFileRoute("/compte")({
   head: () => ({
     meta: [
       { title: "Mon Compte — ZANDO" },
-      { name: "description", content: "Connectez-vous ou créez un compte ZANDO pour suivre vos commandes et gérer vos informations." },
+      {
+        name: "description",
+        content:
+          "Connectez-vous ou créez un compte ZANDO pour suivre vos commandes et gérer vos informations.",
+      },
       { property: "og:title", content: "Mon Compte — ZANDO" },
-      { property: "og:description", content: "Espace client ZANDO : commandes, informations et plus." },
+      {
+        property: "og:description",
+        content: "Espace client ZANDO : commandes, informations et plus.",
+      },
     ],
   }),
   component: ComptePage,
@@ -45,11 +63,7 @@ function ComptePage() {
     return <div className="container-z py-20 text-center text-muted-foreground">Chargement…</div>;
   }
 
-  return (
-    <div className="container-z py-10 md:py-14">
-      {user ? <Dashboard /> : <AuthForms />}
-    </div>
-  );
+  return <div className="container-z py-10 md:py-14">{user ? <Dashboard /> : <AuthForms />}</div>;
 }
 
 function AuthForms() {
@@ -155,8 +169,18 @@ function RegisterForm() {
       <Field label="Nom complet" name="name" required placeholder="Jean Mavoungou" />
       <Field label="Email" name="email" type="email" required placeholder="vous@exemple.com" />
       <Field label="Téléphone" name="phone" type="tel" required placeholder="+242 …" />
-      <PasswordField label="Mot de passe" name="password" required placeholder="6 caractères minimum" />
-      <PasswordField label="Confirmer le mot de passe" name="confirmPassword" required placeholder="Retapez le mot de passe" />
+      <PasswordField
+        label="Mot de passe"
+        name="password"
+        required
+        placeholder="6 caractères minimum"
+      />
+      <PasswordField
+        label="Confirmer le mot de passe"
+        name="confirmPassword"
+        required
+        placeholder="Retapez le mot de passe"
+      />
       <button
         type="submit"
         disabled={loading}
@@ -191,7 +215,9 @@ function Dashboard() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm font-medium uppercase tracking-wider text-primary">Mon compte</p>
-          <h1 className="mt-1 font-display text-3xl font-bold md:text-4xl">Bonjour, {user.name.split(" ")[0]} 👋</h1>
+          <h1 className="mt-1 font-display text-3xl font-bold md:text-4xl">
+            Bonjour, {user.name.split(" ")[0]} 👋
+          </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Membre depuis le {new Date(user.createdAt).toLocaleDateString("fr-FR")}
           </p>
@@ -216,8 +242,13 @@ function Dashboard() {
           </div>
 
           <div className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <p className="flex items-center gap-2"><Mail className="h-4 w-4" /> {user.email}</p>
-            <p className="flex items-center gap-2"><Calendar className="h-4 w-4" /> {new Date(user.createdAt).toLocaleDateString("fr-FR")}</p>
+            <p className="flex items-center gap-2">
+              <Mail className="h-4 w-4" /> {user.email}
+            </p>
+            <p className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />{" "}
+              {new Date(user.createdAt).toLocaleDateString("fr-FR")}
+            </p>
           </div>
 
           <form onSubmit={onSave} className="mt-5 space-y-4">
@@ -250,7 +281,9 @@ function Dashboard() {
               <Package className="h-5 w-5 text-primary" />
               <h2 className="font-display text-lg font-bold">Historique des commandes</h2>
             </div>
-            <span className="text-xs text-muted-foreground">{orders.length} commande{orders.length > 1 ? "s" : ""}</span>
+            <span className="text-xs text-muted-foreground">
+              {orders.length} commande{orders.length > 1 ? "s" : ""}
+            </span>
           </div>
 
           {orders.length === 0 ? (
@@ -273,16 +306,28 @@ function Dashboard() {
                     <div>
                       <p className="font-mono text-sm font-semibold">{o.id}</p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(o.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })}
+                        {new Date(o.date).toLocaleDateString("fr-FR", {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        })}
                         {" · "}
-                        <span className="inline-flex items-center gap-1"><MapPin className="h-3 w-3" />{o.city}</span>
+                        <span className="inline-flex items-center gap-1">
+                          <MapPin className="h-3 w-3" />
+                          {o.city}
+                        </span>
                         {" · "}
-                        <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />{o.payment}</span>
+                        <span className="inline-flex items-center gap-1">
+                          <Phone className="h-3 w-3" />
+                          {o.payment}
+                        </span>
                       </p>
                     </div>
                     <div className="flex items-center gap-3">
                       <StatusBadge status={o.status} />
-                      <span className="font-display text-base font-bold text-primary">{formatFCFA(o.total)}</span>
+                      <span className="font-display text-base font-bold text-primary">
+                        {formatFCFA(o.total)}
+                      </span>
                     </div>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3 text-xs text-muted-foreground">
@@ -305,9 +350,9 @@ function Dashboard() {
 function StatusBadge({ status }: { status: OrderStatus }) {
   const styles: Record<OrderStatus, string> = {
     "En préparation": "bg-amber-100 text-amber-900",
-    "Expédiée": "bg-blue-100 text-blue-900",
-    "Livrée": "bg-emerald-100 text-emerald-900",
-    "Annulée": "bg-rose-100 text-rose-900",
+    Expédiée: "bg-blue-100 text-blue-900",
+    Livrée: "bg-emerald-100 text-emerald-900",
+    Annulée: "bg-rose-100 text-rose-900",
   };
   return (
     <span className={cn("rounded-full px-2.5 py-1 text-xs font-semibold", styles[status])}>
@@ -317,8 +362,20 @@ function StatusBadge({ status }: { status: OrderStatus }) {
 }
 
 function Field({
-  label, name, type = "text", placeholder, required, defaultValue,
-}: { label: string; name: string; type?: string; placeholder?: string; required?: boolean; defaultValue?: string }) {
+  label,
+  name,
+  type = "text",
+  placeholder,
+  required,
+  defaultValue,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  defaultValue?: string;
+}) {
   return (
     <div>
       <label className="mb-1.5 block text-sm font-medium">{label}</label>
@@ -335,8 +392,16 @@ function Field({
 }
 
 function PasswordField({
-  label, name, required, placeholder,
-}: { label: string; name: string; required?: boolean; placeholder?: string }) {
+  label,
+  name,
+  required,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  required?: boolean;
+  placeholder?: string;
+}) {
   const [show, setShow] = useState(false);
   return (
     <div>

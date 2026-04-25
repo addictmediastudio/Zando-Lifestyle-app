@@ -25,10 +25,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
-    meta: [
-      { title: "Admin — ZANDO" },
-      { name: "robots", content: "noindex,nofollow" },
-    ],
+    meta: [{ title: "Admin — ZANDO" }, { name: "robots", content: "noindex,nofollow" }],
   }),
   component: AdminPage,
 });
@@ -54,11 +51,40 @@ function AdminPage() {
           </p>
           <p className="mt-1 text-sm font-bold">ZANDO</p>
         </div>
-        <NavBtn icon={LayoutDashboard} label="Tableau de bord" active={tab === "dashboard"} onClick={() => setTab("dashboard")} />
-        <NavBtn icon={ShoppingBag} label="Commandes" active={tab === "orders"} onClick={() => setTab("orders")} badge={admin.orders.length} />
-        <NavBtn icon={Package} label="Produits" active={tab === "products"} onClick={() => setTab("products")} badge={admin.products.length} />
-        <NavBtn icon={Users} label="Clients" active={tab === "customers"} onClick={() => setTab("customers")} badge={admin.customers.length} />
-        <NavBtn icon={Tag} label="Codes promo" active={tab === "promos"} onClick={() => setTab("promos")} badge={admin.promos.length} />
+        <NavBtn
+          icon={LayoutDashboard}
+          label="Tableau de bord"
+          active={tab === "dashboard"}
+          onClick={() => setTab("dashboard")}
+        />
+        <NavBtn
+          icon={ShoppingBag}
+          label="Commandes"
+          active={tab === "orders"}
+          onClick={() => setTab("orders")}
+          badge={admin.orders.length}
+        />
+        <NavBtn
+          icon={Package}
+          label="Produits"
+          active={tab === "products"}
+          onClick={() => setTab("products")}
+          badge={admin.products.length}
+        />
+        <NavBtn
+          icon={Users}
+          label="Clients"
+          active={tab === "customers"}
+          onClick={() => setTab("customers")}
+          badge={admin.customers.length}
+        />
+        <NavBtn
+          icon={Tag}
+          label="Codes promo"
+          active={tab === "promos"}
+          onClick={() => setTab("promos")}
+          badge={admin.promos.length}
+        />
         <button
           onClick={() => {
             admin.logoutAdmin();
@@ -105,7 +131,9 @@ function NavBtn({
         <Icon className="h-4 w-4" /> {label}
       </span>
       {typeof badge === "number" && (
-        <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${active ? "bg-primary-foreground/20" : "bg-muted-foreground/15"}`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${active ? "bg-primary-foreground/20" : "bg-muted-foreground/15"}`}
+        >
           {badge}
         </span>
       )}
@@ -134,9 +162,14 @@ function AdminLogin() {
 
   return (
     <div className="container-z grid place-items-center py-20">
-      <form onSubmit={onSubmit} className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-6">
+      <form
+        onSubmit={onSubmit}
+        className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-6"
+      >
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Espace admin</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+            Espace admin
+          </p>
           <h1 className="mt-1 font-display text-2xl font-bold">Connexion</h1>
         </div>
         <Field label="Email">
@@ -161,7 +194,8 @@ function AdminLogin() {
           {loading ? "Connexion…" : "Se connecter"}
         </Button>
         <p className="text-xs text-muted-foreground">
-          Démo : <code className="font-mono">{ADMIN_DEMO_CREDENTIALS.email}</code> / <code className="font-mono">{ADMIN_DEMO_CREDENTIALS.password}</code>
+          Démo : <code className="font-mono">{ADMIN_DEMO_CREDENTIALS.email}</code> /{" "}
+          <code className="font-mono">{ADMIN_DEMO_CREDENTIALS.password}</code>
         </p>
       </form>
     </div>
@@ -192,7 +226,11 @@ function Dashboard() {
         <Stat label="Revenu total" value={formatFCFA(revenue)} />
         <Stat label="Commandes" value={orders.length} sub={`${pending} en attente`} />
         <Stat label="Clients" value={customers.length} />
-        <Stat label="Produits" value={products.length} sub={`${promos.filter((p) => p.active).length} promos actives`} />
+        <Stat
+          label="Produits"
+          value={products.length}
+          sub={`${promos.filter((p) => p.active).length} promos actives`}
+        />
       </div>
 
       <div className="rounded-2xl border border-border bg-card p-5">
@@ -233,7 +271,11 @@ function StatusBadge({ status }: { status: OrderStatus }) {
     Livrée: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
     Annulée: "bg-rose-500/15 text-rose-700 dark:text-rose-300",
   };
-  return <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${map[status]}`}>{status}</span>;
+  return (
+    <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${map[status]}`}>
+      {status}
+    </span>
+  );
 }
 
 function OrdersTab() {
@@ -247,7 +289,9 @@ function OrdersTab() {
           <h1 className="font-display text-3xl font-bold">Commandes</h1>
           <p className="text-sm text-muted-foreground">{orders.length} commande(s) au total.</p>
         </div>
-        <Button variant="outline" onClick={refresh}>Actualiser</Button>
+        <Button variant="outline" onClick={refresh}>
+          Actualiser
+        </Button>
       </header>
 
       <div className="overflow-x-auto rounded-2xl border border-border bg-card">
@@ -274,7 +318,9 @@ function OrdersTab() {
             {orders.map((o) => (
               <tr key={o.userId + o.id} className="border-t border-border">
                 <td className="px-4 py-3 font-mono">{o.id}</td>
-                <td className="px-4 py-3 text-muted-foreground">{new Date(o.date).toLocaleDateString("fr-FR")}</td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {new Date(o.date).toLocaleDateString("fr-FR")}
+                </td>
                 <td className="px-4 py-3">
                   <div className="font-medium">{o.userName}</div>
                   <div className="text-xs text-muted-foreground">{o.userEmail}</div>
@@ -292,7 +338,9 @@ function OrdersTab() {
                     className="rounded-md border border-border bg-background px-2 py-1 text-xs"
                   >
                     {statuses.map((s) => (
-                      <option key={s} value={s}>{s}</option>
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
                     ))}
                   </select>
                 </td>
@@ -317,7 +365,9 @@ function ProductsTab() {
           <h1 className="font-display text-3xl font-bold">Produits</h1>
           <p className="text-sm text-muted-foreground">{products.length} produit(s).</p>
         </div>
-        <Button onClick={() => setCreating(true)}><Plus className="h-4 w-4" /> Ajouter</Button>
+        <Button onClick={() => setCreating(true)}>
+          <Plus className="h-4 w-4" /> Ajouter
+        </Button>
       </header>
 
       {creating && (
@@ -363,7 +413,11 @@ function ProductsTab() {
                 <tr key={p.id} className="border-t border-border">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <img src={p.image} alt={p.name} className="h-10 w-10 rounded-md object-cover" />
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="h-10 w-10 rounded-md object-cover"
+                      />
                       <div>
                         <div className="font-medium">{p.name}</div>
                         <div className="text-xs text-muted-foreground">{p.id}</div>
@@ -515,15 +569,48 @@ function ProductForm({
   };
 
   return (
-    <form onSubmit={submit} className="grid gap-3 rounded-xl border border-border bg-background p-4 sm:grid-cols-2">
-      <Field label="Nom"><input className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></Field>
+    <form
+      onSubmit={submit}
+      className="grid gap-3 rounded-xl border border-border bg-background p-4 sm:grid-cols-2"
+    >
+      <Field label="Nom">
+        <input
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          required
+        />
+      </Field>
       <Field label="Catégorie">
-        <select className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value as Category })}>
-          {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+        <select
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+          value={form.category}
+          onChange={(e) => setForm({ ...form, category: e.target.value as Category })}
+        >
+          {categories.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
         </select>
       </Field>
-      <Field label="Prix (FCFA)"><input type="number" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" value={form.price} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} required /></Field>
-      <Field label="Ancien prix (FCFA, optionnel)"><input type="number" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" value={form.oldPrice} onChange={(e) => setForm({ ...form, oldPrice: Number(e.target.value) })} /></Field>
+      <Field label="Prix (FCFA)">
+        <input
+          type="number"
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+          value={form.price}
+          onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
+          required
+        />
+      </Field>
+      <Field label="Ancien prix (FCFA, optionnel)">
+        <input
+          type="number"
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+          value={form.oldPrice}
+          onChange={(e) => setForm({ ...form, oldPrice: Number(e.target.value) })}
+        />
+      </Field>
 
       <div className="sm:col-span-2">
         <span className="mb-1 block text-xs font-medium text-muted-foreground">
@@ -533,7 +620,10 @@ function ProductForm({
           {gallery.length > 0 && (
             <div className="mb-3 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
               {gallery.map((url, idx) => (
-                <div key={url + idx} className="group relative overflow-hidden rounded-md border border-border bg-card">
+                <div
+                  key={url + idx}
+                  className="group relative overflow-hidden rounded-md border border-border bg-card"
+                >
                   <img src={url} alt={`img ${idx + 1}`} className="h-20 w-full object-cover" />
                   {idx === 0 && (
                     <span className="absolute left-1 top-1 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold text-primary-foreground">
@@ -542,11 +632,21 @@ function ProductForm({
                   )}
                   <div className="absolute inset-x-0 bottom-0 flex justify-between bg-background/90 p-1 opacity-0 transition-opacity group-hover:opacity-100">
                     {idx !== 0 && (
-                      <button type="button" onClick={() => setMain(idx)} className="rounded p-1 hover:bg-muted" title="Définir comme principale">
+                      <button
+                        type="button"
+                        onClick={() => setMain(idx)}
+                        className="rounded p-1 hover:bg-muted"
+                        title="Définir comme principale"
+                      >
                         <Star className="h-3 w-3" />
                       </button>
                     )}
-                    <button type="button" onClick={() => removeImage(idx)} className="ml-auto rounded p-1 text-destructive hover:bg-destructive/10" title="Supprimer">
+                    <button
+                      type="button"
+                      onClick={() => removeImage(idx)}
+                      className="ml-auto rounded p-1 text-destructive hover:bg-destructive/10"
+                      title="Supprimer"
+                    >
                       <Trash2 className="h-3 w-3" />
                     </button>
                   </div>
@@ -572,26 +672,56 @@ function ProductForm({
               <>Upload en cours…</>
             ) : (
               <>
-                {gallery.length === 0 ? <Upload className="h-4 w-4" /> : <ImagePlus className="h-4 w-4" />}
+                {gallery.length === 0 ? (
+                  <Upload className="h-4 w-4" />
+                ) : (
+                  <ImagePlus className="h-4 w-4" />
+                )}
                 {gallery.length === 0 ? "Choisir des images" : "Ajouter d'autres images"}
               </>
             )}
           </button>
-          <p className="mt-2 text-[11px] text-muted-foreground">JPG, PNG, WEBP — 5 Mo max par image. Sélection multiple autorisée.</p>
+          <p className="mt-2 text-[11px] text-muted-foreground">
+            JPG, PNG, WEBP — 5 Mo max par image. Sélection multiple autorisée.
+          </p>
         </div>
       </div>
 
-      <Field label="Popularité (0-100)"><input type="number" min={0} max={100} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" value={form.popularity} onChange={(e) => setForm({ ...form, popularity: Number(e.target.value) })} /></Field>
+      <Field label="Popularité (0-100)">
+        <input
+          type="number"
+          min={0}
+          max={100}
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+          value={form.popularity}
+          onChange={(e) => setForm({ ...form, popularity: Number(e.target.value) })}
+        />
+      </Field>
       <label className="flex items-center gap-2 text-sm">
-        <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} />
+        <input
+          type="checkbox"
+          checked={form.featured}
+          onChange={(e) => setForm({ ...form, featured: e.target.checked })}
+        />
         Mettre en vedette
       </label>
       <div className="sm:col-span-2">
-        <Field label="Description"><textarea rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></Field>
+        <Field label="Description">
+          <textarea
+            rows={3}
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+          />
+        </Field>
       </div>
       <div className="flex justify-end gap-2 sm:col-span-2">
-        <Button type="button" variant="outline" onClick={onCancel} disabled={saving}><X className="h-4 w-4" /> Annuler</Button>
-        <Button type="submit" disabled={saving || uploading}><Check className="h-4 w-4" /> {saving ? "Enregistrement…" : "Enregistrer"}</Button>
+        <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>
+          <X className="h-4 w-4" /> Annuler
+        </Button>
+        <Button type="submit" disabled={saving || uploading}>
+          <Check className="h-4 w-4" /> {saving ? "Enregistrement…" : "Enregistrer"}
+        </Button>
       </div>
     </form>
   );
@@ -620,7 +750,11 @@ function CustomersTab() {
           </thead>
           <tbody>
             {customers.length === 0 && (
-              <tr><td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">Aucun client.</td></tr>
+              <tr>
+                <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
+                  Aucun client.
+                </td>
+              </tr>
             )}
             {customers.map((c) => (
               <tr key={c.id} className="border-t border-border">
@@ -630,7 +764,9 @@ function CustomersTab() {
                 <td className="px-4 py-3">{c.city}</td>
                 <td className="px-4 py-3">{c.ordersCount}</td>
                 <td className="px-4 py-3 font-semibold">{formatFCFA(c.totalSpent)}</td>
-                <td className="px-4 py-3 text-muted-foreground">{new Date(c.createdAt).toLocaleDateString("fr-FR")}</td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {new Date(c.createdAt).toLocaleDateString("fr-FR")}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -664,14 +800,31 @@ function PromosTab() {
         <p className="text-sm text-muted-foreground">Gérez les remises proposées au panier.</p>
       </header>
 
-      <form onSubmit={submit} className="flex flex-wrap items-end gap-3 rounded-2xl border border-border bg-card p-4">
+      <form
+        onSubmit={submit}
+        className="flex flex-wrap items-end gap-3 rounded-2xl border border-border bg-card p-4"
+      >
         <Field label="Code">
-          <input value={code} onChange={(e) => setCode(e.target.value)} className="w-44 rounded-md border border-border bg-background px-3 py-2 text-sm uppercase" placeholder="ZANDO20" />
+          <input
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            className="w-44 rounded-md border border-border bg-background px-3 py-2 text-sm uppercase"
+            placeholder="ZANDO20"
+          />
         </Field>
         <Field label="Remise (%)">
-          <input type="number" min={1} max={100} value={percent} onChange={(e) => setPercent(Number(e.target.value))} className="w-28 rounded-md border border-border bg-background px-3 py-2 text-sm" />
+          <input
+            type="number"
+            min={1}
+            max={100}
+            value={percent}
+            onChange={(e) => setPercent(Number(e.target.value))}
+            className="w-28 rounded-md border border-border bg-background px-3 py-2 text-sm"
+          />
         </Field>
-        <Button type="submit"><Plus className="h-4 w-4" /> Ajouter</Button>
+        <Button type="submit">
+          <Plus className="h-4 w-4" /> Ajouter
+        </Button>
       </form>
 
       <div className="overflow-x-auto rounded-2xl border border-border bg-card">
@@ -686,7 +839,11 @@ function PromosTab() {
           </thead>
           <tbody>
             {promos.length === 0 && (
-              <tr><td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">Aucun code promo.</td></tr>
+              <tr>
+                <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
+                  Aucun code promo.
+                </td>
+              </tr>
             )}
             {promos.map((p) => (
               <tr key={p.code} className="border-t border-border">

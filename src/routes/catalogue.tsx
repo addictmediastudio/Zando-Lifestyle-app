@@ -9,7 +9,12 @@ import { ProductCard } from "@/components/ProductCard";
 import { cn } from "@/lib/utils";
 
 const searchSchema = z.object({
-  cat: fallback(z.enum(["Mode", "Cosmétiques", "Accessoires", "Électronique", "Maison", "Sport", "Enfants"]).optional(), undefined).default(undefined),
+  cat: fallback(
+    z
+      .enum(["Mode", "Cosmétiques", "Accessoires", "Électronique", "Maison", "Sport", "Enfants"])
+      .optional(),
+    undefined,
+  ).default(undefined),
 });
 
 export const Route = createFileRoute("/catalogue")({
@@ -17,7 +22,10 @@ export const Route = createFileRoute("/catalogue")({
   head: () => ({
     meta: [
       { title: "Boutique — ZANDO" },
-      { name: "description", content: "Découvrez tous les produits ZANDO : mode, cosmétiques et accessoires." },
+      {
+        name: "description",
+        content: "Découvrez tous les produits ZANDO : mode, cosmétiques et accessoires.",
+      },
       { property: "og:title", content: "Boutique ZANDO" },
       { property: "og:description", content: "Catalogue complet ZANDO." },
     ],
@@ -36,8 +44,7 @@ function CataloguePage() {
   const filtered = useMemo(() => {
     let list = [...products];
     if (cat) list = list.filter((p) => p.category === cat);
-    if (query.trim())
-      list = list.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
+    if (query.trim()) list = list.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
     list = list.filter((p) => p.price <= maxPrice);
     if (sort === "pop") list.sort((a, b) => b.popularity - a.popularity);
     if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
@@ -45,14 +52,15 @@ function CataloguePage() {
     return list;
   }, [products, cat, query, sort, maxPrice]);
 
-  const setCat = (c?: Category) =>
-    navigate({ search: { cat: c } });
+  const setCat = (c?: Category) => navigate({ search: { cat: c } });
 
   return (
     <div className="container-z py-10 md:py-14">
       <div className="mb-8">
         <h1 className="font-display text-4xl font-bold md:text-5xl">Boutique</h1>
-        <p className="mt-2 text-muted-foreground">{filtered.length} produit{filtered.length > 1 ? "s" : ""}</p>
+        <p className="mt-2 text-muted-foreground">
+          {filtered.length} produit{filtered.length > 1 ? "s" : ""}
+        </p>
       </div>
 
       {/* Search */}
@@ -72,7 +80,9 @@ function CataloguePage() {
           onClick={() => setCat(undefined)}
           className={cn(
             "rounded-full border px-4 py-2 text-sm font-medium transition",
-            !cat ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground",
+            !cat
+              ? "border-foreground bg-foreground text-background"
+              : "border-border hover:border-foreground",
           )}
         >
           Tous
@@ -83,7 +93,9 @@ function CataloguePage() {
             onClick={() => setCat(c)}
             className={cn(
               "rounded-full border px-4 py-2 text-sm font-medium transition",
-              cat === c ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground",
+              cat === c
+                ? "border-foreground bg-foreground text-background"
+                : "border-border hover:border-foreground",
             )}
           >
             {c}
@@ -101,7 +113,9 @@ function CataloguePage() {
               onChange={(e) => setMaxPrice(Number(e.target.value))}
               className="accent-primary"
             />
-            <span className="font-medium tabular-nums">{maxPrice.toLocaleString("fr-FR")} FCFA</span>
+            <span className="font-medium tabular-nums">
+              {maxPrice.toLocaleString("fr-FR")} FCFA
+            </span>
           </label>
           <select
             value={sort}
@@ -121,7 +135,9 @@ function CataloguePage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
-          {filtered.map((p) => <ProductCard key={p.id} product={p} />)}
+          {filtered.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
         </div>
       )}
     </div>

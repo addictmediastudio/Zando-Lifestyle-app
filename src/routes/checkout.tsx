@@ -113,9 +113,12 @@ function CheckoutPage() {
         <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-primary/10 text-primary">
           <CheckCircle2 className="h-10 w-10" />
         </div>
-        <h1 className="mt-6 font-display text-3xl font-bold md:text-4xl">Merci pour votre commande !</h1>
+        <h1 className="mt-6 font-display text-3xl font-bold md:text-4xl">
+          Merci pour votre commande !
+        </h1>
         <p className="mt-3 text-muted-foreground">
-          Votre numéro de commande est <span className="font-mono font-semibold text-foreground">{orderId}</span>
+          Votre numéro de commande est{" "}
+          <span className="font-mono font-semibold text-foreground">{orderId}</span>
         </p>
         <p className="mt-1 text-sm text-muted-foreground">
           Notre équipe vous contactera au numéro fourni pour confirmer la livraison.
@@ -148,14 +151,36 @@ function CheckoutPage() {
                 <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
                 <span>
                   Formulaire pré-rempli avec les informations de votre compte
-                  <span className="font-semibold"> ({user.email})</span>. Vous pouvez les modifier ci-dessous.
+                  <span className="font-semibold"> ({user.email})</span>. Vous pouvez les modifier
+                  ci-dessous.
                 </span>
               </div>
             )}
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <Field key={`name-${defaults.name}`} label="Nom complet *" name="name" required defaultValue={defaults.name} />
-              <Field key={`phone-${defaults.phone}`} label="Téléphone *" name="phone" type="tel" placeholder="+242 …" required defaultValue={defaults.phone} />
-              <Field key={`addr-${defaults.address}`} label="Adresse" name="address" placeholder="Quartier, rue, point de repère…" className="sm:col-span-2" defaultValue={defaults.address} />
+              <Field
+                key={`name-${defaults.name}`}
+                label="Nom complet *"
+                name="name"
+                required
+                defaultValue={defaults.name}
+              />
+              <Field
+                key={`phone-${defaults.phone}`}
+                label="Téléphone *"
+                name="phone"
+                type="tel"
+                placeholder="+242 …"
+                required
+                defaultValue={defaults.phone}
+              />
+              <Field
+                key={`addr-${defaults.address}`}
+                label="Adresse"
+                name="address"
+                placeholder="Quartier, rue, point de repère…"
+                className="sm:col-span-2"
+                defaultValue={defaults.address}
+              />
               <div className="sm:col-span-2">
                 <label className="mb-1.5 block text-sm font-medium">Ville</label>
                 <select
@@ -171,7 +196,11 @@ function CheckoutPage() {
             </div>
             {!user && (
               <p className="mt-3 text-xs text-muted-foreground">
-                Astuce : <Link to="/compte" className="font-semibold text-primary hover:underline">connectez-vous</Link> pour pré-remplir vos informations et garder un historique de vos commandes.
+                Astuce :{" "}
+                <Link to="/compte" className="font-semibold text-primary hover:underline">
+                  connectez-vous
+                </Link>{" "}
+                pour pré-remplir vos informations et garder un historique de vos commandes.
               </p>
             )}
           </section>
@@ -179,7 +208,13 @@ function CheckoutPage() {
           <section className="rounded-2xl border border-border p-6">
             <h2 className="font-display text-lg font-bold">Mode de paiement</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <Radio name="pay" value="momo" defaultChecked label="Mobile Money" hint="Airtel / MTN" />
+              <Radio
+                name="pay"
+                value="momo"
+                defaultChecked
+                label="Mobile Money"
+                hint="Airtel / MTN"
+              />
               <Radio name="pay" value="cod" label="À la livraison" hint="Cash à la réception" />
             </div>
           </section>
@@ -190,14 +225,18 @@ function CheckoutPage() {
           <div className="mt-4 space-y-3">
             {items.map(({ product, qty }) => (
               <div key={product.id} className="flex justify-between gap-3 text-sm">
-                <span className="text-background/80">{product.name} <span className="text-background/50">× {qty}</span></span>
+                <span className="text-background/80">
+                  {product.name} <span className="text-background/50">× {qty}</span>
+                </span>
                 <span className="font-medium tabular-nums">{formatFCFA(product.price * qty)}</span>
               </div>
             ))}
           </div>
           <div className="mt-5 flex items-baseline justify-between border-t border-background/15 pt-4">
             <span className="font-semibold">Total</span>
-            <span className="font-display text-2xl font-bold text-primary">{formatFCFA(total)}</span>
+            <span className="font-display text-2xl font-bold text-primary">
+              {formatFCFA(total)}
+            </span>
           </div>
           <button
             type="submit"
@@ -216,8 +255,22 @@ function CheckoutPage() {
 }
 
 function Field({
-  label, name, type = "text", placeholder, required, className, defaultValue,
-}: { label: string; name: string; type?: string; placeholder?: string; required?: boolean; className?: string; defaultValue?: string }) {
+  label,
+  name,
+  type = "text",
+  placeholder,
+  required,
+  className,
+  defaultValue,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  className?: string;
+  defaultValue?: string;
+}) {
   return (
     <div className={className}>
       <label className="mb-1.5 block text-sm font-medium">{label}</label>
@@ -233,10 +286,28 @@ function Field({
   );
 }
 
-function Radio({ name, value, label, hint, defaultChecked }: { name: string; value: string; label: string; hint: string; defaultChecked?: boolean }) {
+function Radio({
+  name,
+  value,
+  label,
+  hint,
+  defaultChecked,
+}: {
+  name: string;
+  value: string;
+  label: string;
+  hint: string;
+  defaultChecked?: boolean;
+}) {
   return (
     <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border p-4 transition has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-      <input type="radio" name={name} value={value} defaultChecked={defaultChecked} className="mt-1 accent-primary" />
+      <input
+        type="radio"
+        name={name}
+        value={value}
+        defaultChecked={defaultChecked}
+        className="mt-1 accent-primary"
+      />
       <span>
         <span className="block text-sm font-semibold">{label}</span>
         <span className="block text-xs text-muted-foreground">{hint}</span>

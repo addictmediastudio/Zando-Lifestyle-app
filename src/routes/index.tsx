@@ -46,7 +46,8 @@ function HomePage() {
               <span className="text-primary">partout</span> avec vous.
             </h1>
             <p className="mt-5 max-w-md text-base text-background/70 md:text-lg">
-              Mode, cosmétiques et accessoires premium. Livraison rapide à Pointe-Noire et Brazzaville.
+              Mode, cosmétiques et accessoires premium. Livraison rapide à Pointe-Noire et
+              Brazzaville.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -72,7 +73,13 @@ function HomePage() {
             className="relative"
           >
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-              <img src={hero} alt="ZANDO lifestyle" className="h-full w-full object-cover" width={1536} height={1280} />
+              <img
+                src={hero}
+                alt="ZANDO lifestyle"
+                className="h-full w-full object-cover"
+                width={1536}
+                height={1280}
+              />
             </div>
             <div className="absolute -bottom-4 -left-4 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-xl">
               -20% Collection
@@ -83,11 +90,17 @@ function HomePage() {
         {/* Promo banner */}
         <div className="border-t border-background/10 bg-primary text-primary-foreground">
           <div className="container-z flex flex-wrap items-center justify-center gap-x-8 gap-y-2 py-3 text-sm font-medium">
-            <span className="flex items-center gap-2"><Truck className="h-4 w-4" /> Livraison rapide à Pointe-Noire</span>
+            <span className="flex items-center gap-2">
+              <Truck className="h-4 w-4" /> Livraison rapide à Pointe-Noire
+            </span>
             <span className="hidden h-1 w-1 rounded-full bg-primary-foreground/50 sm:block" />
-            <span className="flex items-center gap-2"><Shield className="h-4 w-4" /> Paiement à la livraison</span>
+            <span className="flex items-center gap-2">
+              <Shield className="h-4 w-4" /> Paiement à la livraison
+            </span>
             <span className="hidden h-1 w-1 rounded-full bg-primary-foreground/50 sm:block" />
-            <span className="flex items-center gap-2"><Sparkles className="h-4 w-4" /> Produits authentiques</span>
+            <span className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4" /> Produits authentiques
+            </span>
           </div>
         </div>
       </section>
@@ -110,7 +123,12 @@ function HomePage() {
                 search={{ cat: c }}
                 className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted"
               >
-                <img src={img} alt={c} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <img
+                  src={img}
+                  alt={c}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5 text-background">
                   <span className="font-display text-2xl font-bold">{c}</span>
@@ -129,12 +147,17 @@ function HomePage() {
             <h2 className="font-display text-3xl font-bold md:text-4xl">En vedette</h2>
             <p className="mt-1 text-muted-foreground">Sélection ZANDO du moment.</p>
           </div>
-          <Link to="/catalogue" className="hidden text-sm font-semibold text-primary hover:underline sm:inline">
+          <Link
+            to="/catalogue"
+            className="hidden text-sm font-semibold text-primary hover:underline sm:inline"
+          >
             Voir tout →
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
-          {featured.map((p) => <ProductCard key={p.id} product={p} />)}
+          {featured.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
         </div>
       </section>
 
@@ -144,8 +167,12 @@ function HomePage() {
           <div className="rounded-3xl bg-foreground p-6 text-background md:p-12">
             <div className="mb-8 flex items-end justify-between">
               <div>
-                <span className="text-sm font-semibold uppercase tracking-wider text-primary">Offres du moment</span>
-                <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Profitez-en avant la fin.</h2>
+                <span className="text-sm font-semibold uppercase tracking-wider text-primary">
+                  Offres du moment
+                </span>
+                <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">
+                  Profitez-en avant la fin.
+                </h2>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">

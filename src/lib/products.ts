@@ -7,7 +7,14 @@ import sunglasses from "@/assets/p-sunglasses.jpg";
 import lipstick from "@/assets/p-lipstick.jpg";
 import hoodie from "@/assets/p-hoodie.jpg";
 
-export type Category = "Mode" | "Cosmétiques" | "Accessoires" | "Électronique" | "Maison" | "Sport" | "Enfants";
+export type Category =
+  | "Mode"
+  | "Cosmétiques"
+  | "Accessoires"
+  | "Électronique"
+  | "Maison"
+  | "Sport"
+  | "Enfants";
 
 export type Product = {
   id: string;
@@ -86,8 +93,7 @@ export const products: Product[] = [
     price: 22000,
     category: "Accessoires",
     image: sunglasses,
-    description:
-      "Lunettes de soleil aviator avec verres polarisés UV400 et monture métal premium.",
+    description: "Lunettes de soleil aviator avec verres polarisés UV400 et monture métal premium.",
     popularity: 70,
   },
   {
@@ -96,8 +102,7 @@ export const products: Product[] = [
     price: 8500,
     category: "Cosmétiques",
     image: lipstick,
-    description:
-      "Rouge à lèvres mat longue tenue, hydratant, couleur intense qui ne file pas.",
+    description: "Rouge à lèvres mat longue tenue, hydratant, couleur intense qui ne file pas.",
     popularity: 65,
   },
   {
@@ -106,27 +111,29 @@ export const products: Product[] = [
     price: 28000,
     category: "Mode",
     image: hoodie,
-    description:
-      "Hoodie oversized en coton brossé épais, coupe streetwear, label orange ZANDO.",
+    description: "Hoodie oversized en coton brossé épais, coupe streetwear, label orange ZANDO.",
     popularity: 85,
   },
 ];
 
-export const categories: Category[] = ["Mode", "Cosmétiques", "Accessoires", "Électronique", "Maison", "Sport", "Enfants"];
+export const categories: Category[] = [
+  "Mode",
+  "Cosmétiques",
+  "Accessoires",
+  "Électronique",
+  "Maison",
+  "Sport",
+  "Enfants",
+];
 
-export const formatFCFA = (n: number) =>
-  new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
+export const formatFCFA = (n: number) => new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
 
 export const getProduct = (id: string) => products.find((p) => p.id === id);
 
 import { supabase } from "@/integrations/supabase/client";
 
 export const fetchProductFromSupabase = async (id: string): Promise<Product | null> => {
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle();
+  const { data, error } = await supabase.from("products").select("*").eq("id", id).maybeSingle();
 
   if (error || !data) return null;
 

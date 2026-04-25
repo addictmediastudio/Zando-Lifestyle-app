@@ -42,7 +42,9 @@ type AuthCtx = {
   login: (email: string, password: string) => Promise<void>;
   register: (data: RegisterInput) => Promise<void>;
   logout: () => Promise<void>;
-  updateProfile: (data: Partial<Pick<User, "name" | "phone" | "city" | "address">>) => Promise<void>;
+  updateProfile: (
+    data: Partial<Pick<User, "name" | "phone" | "city" | "address">>,
+  ) => Promise<void>;
   addOrder: (order: Omit<Order, "id" | "date" | "status">) => Promise<Order | null>;
   refreshOrders: () => Promise<void>;
 };
@@ -166,7 +168,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setOrders([]);
   };
 
-  const updateProfile = async (data: Partial<Pick<User, "name" | "phone" | "city" | "address">>) => {
+  const updateProfile = async (
+    data: Partial<Pick<User, "name" | "phone" | "city" | "address">>,
+  ) => {
     if (!user) return;
     const patch: { name?: string; phone?: string; city?: string; address?: string | null } = {};
     if (data.name !== undefined) patch.name = data.name;
@@ -223,7 +227,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <Ctx.Provider
-      value={{ user, hydrated, orders, login, register, logout, updateProfile, addOrder, refreshOrders }}
+      value={{
+        user,
+        hydrated,
+        orders,
+        login,
+        register,
+        logout,
+        updateProfile,
+        addOrder,
+        refreshOrders,
+      }}
     >
       {children}
     </Ctx.Provider>

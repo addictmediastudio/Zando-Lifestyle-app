@@ -43,13 +43,30 @@ export const Route = createRootRoute({
       },
       { name: "author", content: "ZANDO" },
       { property: "og:title", content: "ZANDO — Boutique Lifestyle premium au Congo" },
-      { property: "og:description", content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic." },
+      {
+        property: "og:description",
+        content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:title", content: "ZANDO — Boutique Lifestyle premium au Congo" },
-      { name: "description", content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic." },
-      { name: "twitter:description", content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/CoFKwLxQXDRubGe9jyTgoPAiYo03/social-images/social-1776956633162-Zando_Mockup.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/CoFKwLxQXDRubGe9jyTgoPAiYo03/social-images/social-1776956633162-Zando_Mockup.webp" },
+      {
+        name: "description",
+        content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic.",
+      },
+      {
+        name: "twitter:description",
+        content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/CoFKwLxQXDRubGe9jyTgoPAiYo03/social-images/social-1776956633162-Zando_Mockup.webp",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/CoFKwLxQXDRubGe9jyTgoPAiYo03/social-images/social-1776956633162-Zando_Mockup.webp",
+      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

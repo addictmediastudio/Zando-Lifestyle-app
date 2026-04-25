@@ -110,10 +110,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const loadAdminData = async () => {
     const [{ data: profiles }, { data: ordersRaw }] = await Promise.all([
       supabase.from("profiles").select("*"),
-      supabase
-        .from("orders")
-        .select("*, order_items(*)")
-        .order("created_at", { ascending: false }),
+      supabase.from("orders").select("*, order_items(*)").order("created_at", { ascending: false }),
     ]);
 
     const ordersByUser = new Map<string, EnrichedOrder[]>();
@@ -207,7 +204,9 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       }
     }
     // Verify admin role
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     if (!session?.user) throw new Error("Connexion échouée");
     const { data: roleRow } = await supabase
       .from("user_roles")
@@ -279,7 +278,9 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   const addPromo: AdminCtx["addPromo"] = async (p) => {
     const code = p.code.trim().toUpperCase();
-    const { error } = await supabase.from("promos").insert({ code, percent: p.percent, active: p.active });
+    const { error } = await supabase
+      .from("promos")
+      .insert({ code, percent: p.percent, active: p.active });
     if (error) throw new Error(error.message);
     await loadCatalogAndPromos();
   };

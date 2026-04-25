@@ -1,5 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Minus, Plus, Trash2, ShoppingBag, Truck, ShieldCheck, ArrowRight, Tag } from "lucide-react";
+import {
+  Minus,
+  Plus,
+  Trash2,
+  ShoppingBag,
+  Truck,
+  ShieldCheck,
+  ArrowRight,
+  Tag,
+} from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useCart } from "@/lib/cart";
@@ -20,7 +29,11 @@ export const Route = createFileRoute("/panier")({
   head: () => ({
     meta: [
       { title: "Panier — ZANDO" },
-      { name: "description", content: "Vérifiez vos articles, ajustez les quantités et passez votre commande en toute simplicité." },
+      {
+        name: "description",
+        content:
+          "Vérifiez vos articles, ajustez les quantités et passez votre commande en toute simplicité.",
+      },
     ],
   }),
   component: CartPage,
@@ -149,10 +162,13 @@ function CartPage() {
           <Truck className="h-4 w-4 text-primary" />
           {remainingForFree > 0 ? (
             <span>
-              Plus que <strong className="text-foreground">{formatFCFA(remainingForFree)}</strong> pour la livraison gratuite 🎉
+              Plus que <strong className="text-foreground">{formatFCFA(remainingForFree)}</strong>{" "}
+              pour la livraison gratuite 🎉
             </span>
           ) : (
-            <span className="font-medium text-primary">Vous bénéficiez de la livraison gratuite !</span>
+            <span className="font-medium text-primary">
+              Vous bénéficiez de la livraison gratuite !
+            </span>
           )}
         </div>
         <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-border">
@@ -219,7 +235,9 @@ function CartPage() {
                       >
                         <Minus className="h-3.5 w-3.5" />
                       </button>
-                      <span className="w-8 text-center text-sm font-semibold tabular-nums">{qty}</span>
+                      <span className="w-8 text-center text-sm font-semibold tabular-nums">
+                        {qty}
+                      </span>
                       <button
                         onClick={() => handleQtyChange(product.id, qty, qty + 1, product.name)}
                         className="grid h-9 w-9 place-items-center rounded-r-full transition hover:text-primary"
@@ -229,8 +247,12 @@ function CartPage() {
                       </button>
                     </div>
                     <div className="text-right">
-                      <p className="text-[11px] uppercase tracking-wider text-muted-foreground">Sous-total</p>
-                      <span className="font-display text-lg font-bold">{formatFCFA(lineTotal)}</span>
+                      <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                        Sous-total
+                      </p>
+                      <span className="font-display text-lg font-bold">
+                        {formatFCFA(lineTotal)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -252,7 +274,10 @@ function CartPage() {
 
             {/* Promo */}
             <div className="mt-5">
-              <label htmlFor="promo" className="text-xs uppercase tracking-wider text-background/60">
+              <label
+                htmlFor="promo"
+                className="text-xs uppercase tracking-wider text-background/60"
+              >
                 Code promo
               </label>
               <div className="mt-2 flex gap-2">
@@ -277,13 +302,18 @@ function CartPage() {
 
             <div className="mt-5 space-y-2.5 text-sm">
               <div className="flex justify-between text-background/70">
-                <span>Sous-total ({count} {count > 1 ? "articles" : "article"})</span>
+                <span>
+                  Sous-total ({count} {count > 1 ? "articles" : "article"})
+                </span>
                 <span className="text-background">{formatFCFA(total)}</span>
               </div>
               {discount > 0 && (
                 <div className="flex items-center justify-between text-primary">
                   <span className="flex items-center gap-2">
-                    Réduction <span className="rounded-full bg-primary/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">{appliedCode}</span>
+                    Réduction{" "}
+                    <span className="rounded-full bg-primary/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+                      {appliedCode}
+                    </span>
                     <button
                       onClick={removePromo}
                       className="text-[11px] text-background/60 underline-offset-2 hover:text-background hover:underline"
@@ -304,7 +334,9 @@ function CartPage() {
 
             <div className="mt-4 flex items-baseline justify-between border-t border-background/15 pt-4">
               <span className="font-semibold">Total TTC</span>
-              <span className="font-display text-2xl font-bold text-primary">{formatFCFA(grandTotal)}</span>
+              <span className="font-display text-2xl font-bold text-primary">
+                {formatFCFA(grandTotal)}
+              </span>
             </div>
 
             <Link
@@ -322,12 +354,15 @@ function CartPage() {
               <li className="flex items-start gap-3">
                 <Truck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 <span className="text-muted-foreground">
-                  Livraison rapide à <span className="font-medium text-foreground">Pointe-Noire</span> et Brazzaville
+                  Livraison rapide à{" "}
+                  <span className="font-medium text-foreground">Pointe-Noire</span> et Brazzaville
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <span className="text-muted-foreground">Paiement sécurisé — Mobile Money ou à la livraison</span>
+                <span className="text-muted-foreground">
+                  Paiement sécurisé — Mobile Money ou à la livraison
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <Tag className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
@@ -369,7 +404,12 @@ function CartPage() {
                 <div className="flex justify-between text-primary">
                   <span className="flex items-center gap-2">
                     {appliedCode}
-                    <button onClick={removePromo} className="text-[11px] text-background/60 underline">retirer</button>
+                    <button
+                      onClick={removePromo}
+                      className="text-[11px] text-background/60 underline"
+                    >
+                      retirer
+                    </button>
                   </span>
                   <span>− {formatFCFA(discount)}</span>
                 </div>
