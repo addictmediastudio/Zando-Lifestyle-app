@@ -54,6 +54,15 @@ try {
     fs.unlinkSync(clientWranglerJson);
   }
 
+  // 4.5. Create _routes.json for Cloudflare Pages advanced routing
+  const routesJsonPath = path.join(clientDir, '_routes.json');
+  console.log('Creating _routes.json...');
+  fs.writeFileSync(routesJsonPath, JSON.stringify({
+    version: 1,
+    include: ["/*"],
+    exclude: ["/assets/*", "/favicon.png"]
+  }, null, 2));
+
   // 5. Delete .assetsignore (no longer needed)
   const assetsIgnore = path.join(clientDir, '.assetsignore');
   if (fs.existsSync(assetsIgnore)) {
