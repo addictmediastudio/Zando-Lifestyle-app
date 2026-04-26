@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-square overflow-hidden rounded-xl bg-white shadow-sm">
+      <div className="relative aspect-square overflow-hidden rounded-xl">
         <img
           src={allImages[currentIdx]}
           alt={product.name}

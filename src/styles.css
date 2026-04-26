@@ -41,7 +41,7 @@
   --ink: oklch(0.2 0.025 50);
   --ink-soft: oklch(0.28 0.03 55);
 
-  --background: oklch(0.95 0.018 75); /* crème chaud (couleur de départ) */
+  --background: oklch(1 0 0); /* Blanc pur pour une uniformité totale */
   --foreground: oklch(0.2 0.025 50); /* marron foncé pour le texte */
 
   --card: oklch(0.97 0.012 75);

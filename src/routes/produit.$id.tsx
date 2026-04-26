@@ -77,7 +77,7 @@ function ProductPage() {
 
       <div className="grid gap-10 md:grid-cols-2">
         <div className="space-y-4">
-          <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm border border-border">
+          <div className="relative overflow-hidden rounded-2xl">
             <img
               src={selectedImage}
               alt={product.name}
