@@ -41,22 +41,22 @@
   --ink: oklch(0.2 0.025 50);
   --ink-soft: oklch(0.28 0.03 55);
 
-  --background: oklch(1 0 0); /* Blanc pur */
+  --background: #ffffff;
   --foreground: oklch(0.2 0.025 50);
 
-  --card: oklch(1 0 0);
+  --card: #ffffff;
   --card-foreground: oklch(0.2 0.025 50);
-  --popover: oklch(1 0 0);
+  --popover: #ffffff;
   --popover-foreground: oklch(0.2 0.025 50);
 
   --primary: oklch(0.7 0.2 38); /* orange ZANDO */
-  --primary-foreground: oklch(0.98 0.01 75);
+  --primary-foreground: #ffffff;
 
-  --secondary: oklch(1 0 0);
+  --secondary: #ffffff;
   --secondary-foreground: oklch(0.2 0.025 50);
-  --muted: oklch(1 0 0);
+  --muted: #ffffff;
   --muted-foreground: oklch(0.45 0.03 55);
-  --accent: oklch(1 0 0);
+  --accent: #ffffff;
   --accent-foreground: oklch(0.2 0.025 50);
 
   --destructive: oklch(0.6 0.22 25);
@@ -91,7 +91,7 @@
     -webkit-font-smoothing: antialiased;
   }
   body {
-    background-color: var(--color-background);
+    background-color: #ffffff !important;
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
