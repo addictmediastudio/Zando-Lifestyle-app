@@ -54,11 +54,24 @@ try {
     ),
   );
 
-  // 5. Delete auto-generated wrangler.json in client dir to avoid Cloudflare Pages validation errors
+  // 5. Clean auto-generated wrangler.json instead of deleting it (Cloudflare Pages needs it but without absolute paths)
   const clientWranglerJson = path.join(clientDir, "wrangler.json");
   if (fs.existsSync(clientWranglerJson)) {
-    console.log("Deleting auto-generated wrangler.json from client directory...");
-    fs.unlinkSync(clientWranglerJson);
+    console.log("Cleaning auto-generated wrangler.json for Cloudflare...");
+    try {
+      const config = JSON.parse(fs.readFileSync(clientWranglerJson, "utf-8"));
+      // Remove absolute paths and invalid triggers that break Cloudflare deployment
+      delete config.configPath;
+      delete config.userConfigPath;
+      delete config.pages_build_output_dir;
+      if (config.triggers) delete config.triggers;
+      
+      fs.writeFileSync(clientWranglerJson, JSON.stringify(config, null, 2));
+      console.log("wrangler.json cleaned successfully.");
+    } catch (e) {
+      console.warn("Could not clean wrangler.json, deleting it as fallback:", e.message);
+      fs.unlinkSync(clientWranglerJson);
+    }
   }
 
   // 6. Create a minimal index.html to ensure Cloudflare Pages knows it's a site
