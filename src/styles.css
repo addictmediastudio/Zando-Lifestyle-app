@@ -41,22 +41,22 @@
   --ink: oklch(0.2 0.025 50);
   --ink-soft: oklch(0.28 0.03 55);
 
-  --background: oklch(1 0 0); /* Blanc pur pour une uniformité totale */
-  --foreground: oklch(0.2 0.025 50); /* marron foncé pour le texte */
+  --background: oklch(1 0 0); /* Blanc pur */
+  --foreground: oklch(0.2 0.025 50);
 
-  --card: oklch(0.97 0.012 75);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.2 0.025 50);
-  --popover: oklch(0.97 0.012 75);
+  --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.025 50);
 
   --primary: oklch(0.7 0.2 38); /* orange ZANDO */
   --primary-foreground: oklch(0.98 0.01 75);
 
-  --secondary: oklch(0.9 0.02 75);
+  --secondary: oklch(1 0 0);
   --secondary-foreground: oklch(0.2 0.025 50);
-  --muted: oklch(0.92 0.018 75);
+  --muted: oklch(1 0 0);
   --muted-foreground: oklch(0.45 0.03 55);
-  --accent: oklch(0.88 0.05 50);
+  --accent: oklch(1 0 0);
   --accent-foreground: oklch(0.2 0.025 50);
 
   --destructive: oklch(0.6 0.22 25);
