@@ -60,7 +60,24 @@ try {
     ),
   );
 
-  // 5. Delete .assetsignore (no longer needed)
+  // 5. Delete auto-generated wrangler.json in client dir to avoid Cloudflare Pages validation errors
+  const clientWranglerJson = path.join(clientDir, "wrangler.json");
+  if (fs.existsSync(clientWranglerJson)) {
+    console.log("Deleting auto-generated wrangler.json from client directory...");
+    fs.unlinkSync(clientWranglerJson);
+  }
+
+  // 6. Create a minimal index.html to ensure Cloudflare Pages knows it's a site
+  const indexHtmlPath = path.join(clientDir, "index.html");
+  if (!fs.existsSync(indexHtmlPath)) {
+    console.log("Creating minimal index.html...");
+    fs.writeFileSync(
+      indexHtmlPath,
+      '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body><div id="root"></div></body></html>',
+    );
+  }
+
+  // 7. Delete .assetsignore (no longer needed)
   const assetsIgnore = path.join(clientDir, ".assetsignore");
   if (fs.existsSync(assetsIgnore)) {
     fs.unlinkSync(assetsIgnore);
