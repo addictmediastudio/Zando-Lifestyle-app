@@ -30,7 +30,7 @@ function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-foreground text-background">
+      <section className="relative overflow-hidden bg-white text-foreground">
         <div className="container-z grid items-center gap-10 py-16 md:grid-cols-2 md:py-24 lg:py-28">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ function HomePage() {
               <br />
               <span className="text-primary">partout</span> avec vous.
             </h1>
-            <p className="mt-5 max-w-md text-base text-background/70 md:text-lg">
+            <p className="mt-5 max-w-md text-base text-muted-foreground md:text-lg">
               Mode, cosmétiques et accessoires premium. Livraison rapide à Pointe-Noire et
               Brazzaville.
             </p>
@@ -59,7 +59,7 @@ function HomePage() {
               <Link
                 to="/catalogue"
                 search={{ cat: "Cosmétiques" }}
-                className="inline-flex items-center rounded-full border border-background/30 px-7 py-3.5 text-sm font-semibold text-background hover:bg-background/10"
+                className="inline-flex items-center rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-foreground hover:bg-muted"
               >
                 Cosmétiques
               </Link>
@@ -88,16 +88,16 @@ function HomePage() {
         </div>
 
         {/* Promo banner */}
-        <div className="border-t border-background/10 bg-primary text-primary-foreground">
+        <div className="border-y border-border bg-white text-foreground">
           <div className="container-z flex flex-wrap items-center justify-center gap-x-8 gap-y-2 py-3 text-sm font-medium">
             <span className="flex items-center gap-2">
               <Truck className="h-4 w-4" /> Livraison rapide à Pointe-Noire
             </span>
-            <span className="hidden h-1 w-1 rounded-full bg-primary-foreground/50 sm:block" />
+            <span className="hidden h-1 w-1 rounded-full bg-border sm:block" />
             <span className="flex items-center gap-2">
               <Shield className="h-4 w-4" /> Paiement à la livraison
             </span>
-            <span className="hidden h-1 w-1 rounded-full bg-primary-foreground/50 sm:block" />
+            <span className="hidden h-1 w-1 rounded-full bg-border sm:block" />
             <span className="flex items-center gap-2">
               <Sparkles className="h-4 w-4" /> Produits authentiques
             </span>

@@ -4,7 +4,7 @@ import logo from "@/assets/zando-logo.png";
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-[oklch(0.2_0.025_50)] text-[oklch(0.96_0.01_75)]">
+    <footer className="mt-24 border-t border-border bg-white text-foreground">
       <div className="container-z grid gap-10 py-14 md:grid-cols-4">
         <div>
           <img

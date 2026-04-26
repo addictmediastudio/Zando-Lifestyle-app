@@ -28,10 +28,10 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 text-[oklch(0.96_0.01_75)] transition-all duration-300",
+        "sticky top-0 z-50 text-foreground transition-all duration-300",
         scrolled
-          ? "border-b border-white/10 bg-[oklch(0.18_0.025_50)]/90 backdrop-blur-xl shadow-[0_4px_30px_-12px_rgba(0,0,0,0.6)]"
-          : "border-b border-transparent bg-[oklch(0.2_0.025_50)]",
+          ? "border-b border-border bg-white/90 backdrop-blur-xl shadow-sm"
+          : "border-b border-transparent bg-white",
       )}
     >
       {/* Top promo strip */}
@@ -77,32 +77,32 @@ export function Header() {
         <div className="flex items-center gap-1.5">
           <Link
             to="/catalogue"
-            className="hidden h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/85 backdrop-blur transition-colors hover:border-primary/60 hover:text-primary sm:flex"
+            className="hidden h-11 w-11 items-center justify-center rounded-full border border-border bg-muted/30 text-foreground transition-colors hover:border-primary/60 hover:text-primary sm:flex"
             aria-label="Rechercher"
           >
             <Search className="h-[18px] w-[18px]" />
           </Link>
           <Link
             to="/compte"
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white/85 backdrop-blur transition-colors hover:border-primary/60 hover:text-primary"
+            className="grid h-11 w-11 place-items-center rounded-full border border-border bg-muted/30 text-foreground transition-colors hover:border-primary/60 hover:text-primary"
             aria-label="Compte"
           >
             <User className="h-[18px] w-[18px]" />
           </Link>
           <Link
             to="/panier"
-            className="relative grid h-11 w-11 place-items-center rounded-full border border-primary/50 bg-primary/15 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+            className="relative grid h-11 w-11 place-items-center rounded-full border border-primary/50 bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
             aria-label="Panier"
           >
             <ShoppingBag className="h-[18px] w-[18px]" />
             {count > 0 && (
-              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground ring-2 ring-[oklch(0.2_0.025_50)]">
+              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground ring-2 ring-white">
                 {count}
               </span>
             )}
           </Link>
           <button
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white hover:border-primary/60 hover:text-primary md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full border border-border bg-muted/30 text-foreground hover:border-primary/60 hover:text-primary md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >
