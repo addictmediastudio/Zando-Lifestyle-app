@@ -77,11 +77,11 @@ function ProductPage() {
 
       <div className="grid gap-10 md:grid-cols-2">
         <div className="space-y-4">
-          <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm border border-border">
+          <div className="relative overflow-hidden rounded-2xl bg-white/50 shadow-sm border border-border">
             <img
               src={selectedImage}
               alt={product.name}
-              className="aspect-square w-full object-contain p-4 transition-all duration-300"
+              className="aspect-square w-full object-contain mix-blend-multiply transition-all duration-300"
             />
             {discount > 0 && (
               <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1.5 text-sm font-bold text-primary-foreground">
@@ -105,7 +105,7 @@ function ProductPage() {
                   <img
                     src={img}
                     alt={`Thumbnail ${idx}`}
-                    className="h-full w-full object-contain p-1"
+                    className="h-full w-full object-contain mix-blend-multiply"
                   />
                 </button>
               ))}
@@ -151,7 +151,7 @@ function ProductPage() {
                     <img
                       src={img}
                       alt={`Model ${idx}`}
-                      className="h-full w-full object-contain p-0.5"
+                      className="h-full w-full object-contain mix-blend-multiply"
                     />
                   </button>
                 ))}
