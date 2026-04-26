@@ -54,24 +54,18 @@ try {
     ),
   );
 
-  // 5. Clean auto-generated wrangler.json instead of deleting it (Cloudflare Pages needs it but without absolute paths)
+  // 5. Delete auto-generated wrangler.json and .wrangler directory to prevent configuration conflicts.
+  // This forces Cloudflare Pages to use the root wrangler.toml and avoids "No such module node:async_hooks" errors.
   const clientWranglerJson = path.join(clientDir, "wrangler.json");
   if (fs.existsSync(clientWranglerJson)) {
-    console.log("Cleaning auto-generated wrangler.json for Cloudflare...");
-    try {
-      const config = JSON.parse(fs.readFileSync(clientWranglerJson, "utf-8"));
-      // Remove absolute paths and invalid triggers that break Cloudflare deployment
-      delete config.configPath;
-      delete config.userConfigPath;
-      delete config.pages_build_output_dir;
-      if (config.triggers) delete config.triggers;
-      
-      fs.writeFileSync(clientWranglerJson, JSON.stringify(config, null, 2));
-      console.log("wrangler.json cleaned successfully.");
-    } catch (e) {
-      console.warn("Could not clean wrangler.json, deleting it as fallback:", e.message);
-      fs.unlinkSync(clientWranglerJson);
-    }
+    console.log("Deleting wrangler.json to avoid conflicts...");
+    fs.unlinkSync(clientWranglerJson);
+  }
+
+  const dotWranglerDir = ".wrangler";
+  if (fs.existsSync(dotWranglerDir)) {
+    console.log("Deleting .wrangler directory...");
+    fs.rmSync(dotWranglerDir, { recursive: true, force: true });
   }
 
   // 6. Create a minimal index.html to ensure Cloudflare Pages knows it's a site
