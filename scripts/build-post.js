@@ -7,41 +7,35 @@ const clientDir = "dist/client";
 console.log("Running post-build script...");
 
 try {
-  // 1. Create _worker.js DIRECTORY (Cloudflare Pages multi-file worker format)
-  //    This avoids the esbuild re-bundling that breaks ./assets/ imports
-  const workerDir = path.join(clientDir, "_worker.js");
-  if (fs.existsSync(workerDir)) {
-    fs.rmSync(workerDir, { recursive: true });
-  }
-  fs.mkdirSync(workerDir, { recursive: true });
-
-  // 2. Copy server entry as index.js inside _worker.js/
+  // 1. Copy server entry as _worker.js in client dir
   const serverFiles = fs.readdirSync(serverDir);
   const workerFile = serverFiles.find((f) => f.endsWith(".js") && !f.includes("assets"));
-
+  
   if (!workerFile) {
     console.error("Could not find server entry file in", serverDir);
     process.exit(1);
   }
 
   const srcWorker = path.join(serverDir, workerFile);
-  const destWorker = path.join(workerDir, "index.js");
-
+  const destWorker = path.join(clientDir, "_worker.js");
+  
   console.log(`Copying ${srcWorker} to ${destWorker}...`);
   fs.copyFileSync(srcWorker, destWorker);
 
-  // 3. Copy server assets into _worker.js/assets/
+  // 2. Copy all server assets into client assets directory
   const serverAssetsDir = path.join(serverDir, "assets");
-  const workerAssetsDir = path.join(workerDir, "assets");
+  const clientAssetsDir = path.join(clientDir, "assets");
 
   if (fs.existsSync(serverAssetsDir)) {
-    fs.mkdirSync(workerAssetsDir, { recursive: true });
-    console.log("Copying server assets to _worker.js/assets/...");
+    if (!fs.existsSync(clientAssetsDir)) {
+      fs.mkdirSync(clientAssetsDir, { recursive: true });
+    }
+    console.log("Merging server assets into client assets...");
     const assetFiles = fs.readdirSync(serverAssetsDir);
     for (const file of assetFiles) {
-      fs.copyFileSync(path.join(serverAssetsDir, file), path.join(workerAssetsDir, file));
+      fs.copyFileSync(path.join(serverAssetsDir, file), path.join(clientAssetsDir, file));
     }
-    console.log(`Copied ${assetFiles.length} server asset files.`);
+    console.log(`Merged ${assetFiles.length} server asset files.`);
   }
 
   // (wrangler.json deletion removed to prevent Cloudflare Pages deployment error)
@@ -85,8 +79,8 @@ try {
 
   console.log("Post-build script completed successfully.");
   console.log("Output structure:");
-  console.log("  dist/client/           <- static assets served by Cloudflare CDN");
-  console.log("  dist/client/_worker.js/ <- Pages Function (multi-file worker)");
+  console.log("  dist/client/           <- static assets + _worker.js");
+  console.log("  dist/client/assets/    <- combined client/server assets");
 } catch (err) {
   console.error("Error in post-build script:", err);
   process.exit(1);
