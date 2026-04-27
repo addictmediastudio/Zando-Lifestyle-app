@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/zando-logo.png";
+import { CongoFlag } from "./CongoFlag";
 
 const nav = [
   { to: "/", label: "Accueil" },
@@ -38,7 +39,7 @@ export function Header() {
       <div className="hidden bg-primary/10 text-primary md:block">
         <div className="container-z flex h-8 items-center justify-between text-[11px] font-medium uppercase tracking-[0.18em]">
           <span>Livraison rapide à Pointe-Noire & Brazzaville</span>
-          <span className="opacity-80">🇨🇬 +242 05 545 70 46</span>
+          <span className="opacity-80 inline-flex items-center gap-1.5"><CongoFlag className="w-3.5 h-auto rounded-[1px]" /> +242 05 545 70 46</span>
         </div>
       </div>
 
@@ -62,7 +63,7 @@ export function Header() {
                 to={n.to}
                 className={cn(
                   "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  active ? "text-white" : "text-white/70 hover:text-white",
+                  active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
                 )}
               >
                 {n.label}
@@ -112,7 +113,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-white/10 bg-[oklch(0.18_0.025_50)] backdrop-blur-xl md:hidden">
+        <div className="border-t border-border bg-white backdrop-blur-xl md:hidden">
           <nav className="container-z flex flex-col py-4">
             {nav.map((n) => {
               const active = location.pathname === n.to;
@@ -125,7 +126,7 @@ export function Header() {
                     "rounded-lg px-3 py-3 text-base font-medium transition-colors",
                     active
                       ? "bg-primary/15 text-primary"
-                      : "text-white/85 hover:bg-white/5 hover:text-white",
+                      : "text-foreground/80 hover:bg-muted hover:text-foreground",
                   )}
                 >
                   {n.label}

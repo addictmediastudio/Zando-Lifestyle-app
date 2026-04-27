@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/auth";
 import { formatFCFA } from "@/lib/products";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { CongoFlag } from "@/components/CongoFlag";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Commande — ZANDO" }] }),
@@ -246,7 +247,7 @@ function CheckoutPage() {
             {loading ? "Traitement..." : "Valider la commande"}
           </button>
           <p className="mt-3 text-center text-xs text-background/60">
-            Besoin d'aide ? 🇨🇬 +242 05 545 70 46
+            Besoin d'aide ? <CongoFlag className="inline-block w-3 h-auto rounded-[1px] mx-0.5 align-baseline" /> +242 05 545 70 46
           </p>
         </aside>
       </form>

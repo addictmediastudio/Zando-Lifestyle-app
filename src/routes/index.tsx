@@ -5,6 +5,7 @@ import hero from "@/assets/hero.jpg";
 import { products, categories } from "@/lib/products";
 import { useAdmin } from "@/lib/admin";
 import { ProductCard } from "@/components/ProductCard";
+import { CongoFlag } from "@/components/CongoFlag";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,7 +48,7 @@ function HomePage() {
             </h1>
             <p className="mt-5 max-w-md text-base text-muted-foreground md:text-lg">
               Mode, cosmétiques et accessoires premium. Livraison rapide à Pointe-Noire et
-              Brazzaville.
+              Brazzaville <CongoFlag className="inline-block w-4 h-auto ml-1 mb-0.5 rounded-[1px] shadow-sm" />.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
