@@ -29,10 +29,10 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 text-foreground transition-all duration-300",
+        "sticky top-0 z-50 text-white transition-all duration-300",
         scrolled
-          ? "border-b border-border bg-white/90 backdrop-blur-xl shadow-sm"
-          : "border-b border-transparent bg-white",
+          ? "border-b border-white/10 bg-[oklch(0.18_0.025_50)]/90 backdrop-blur-xl shadow-sm"
+          : "border-b border-transparent bg-[oklch(0.18_0.025_50)]",
       )}
     >
       {/* Top promo strip */}
@@ -63,7 +63,7 @@ export function Header() {
                 to={n.to}
                 className={cn(
                   "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
+                  active ? "text-white" : "text-white/70 hover:text-white",
                 )}
               >
                 {n.label}
@@ -78,32 +78,32 @@ export function Header() {
         <div className="flex items-center gap-1.5">
           <Link
             to="/catalogue"
-            className="hidden h-11 w-11 items-center justify-center rounded-full border border-border bg-muted/30 text-foreground transition-colors hover:border-primary/60 hover:text-primary sm:flex"
+            className="hidden h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/85 backdrop-blur transition-colors hover:border-primary/60 hover:text-primary sm:flex"
             aria-label="Rechercher"
           >
             <Search className="h-[18px] w-[18px]" />
           </Link>
           <Link
             to="/compte"
-            className="grid h-11 w-11 place-items-center rounded-full border border-border bg-muted/30 text-foreground transition-colors hover:border-primary/60 hover:text-primary"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white/85 backdrop-blur transition-colors hover:border-primary/60 hover:text-primary"
             aria-label="Compte"
           >
             <User className="h-[18px] w-[18px]" />
           </Link>
           <Link
             to="/panier"
-            className="relative grid h-11 w-11 place-items-center rounded-full border border-primary/50 bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+            className="relative grid h-11 w-11 place-items-center rounded-full border border-primary/50 bg-primary/15 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
             aria-label="Panier"
           >
             <ShoppingBag className="h-[18px] w-[18px]" />
             {count > 0 && (
-              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground ring-2 ring-white">
+              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground ring-2 ring-[oklch(0.2_0.025_50)]">
                 {count}
               </span>
             )}
           </Link>
           <button
-            className="grid h-11 w-11 place-items-center rounded-full border border-border bg-muted/30 text-foreground hover:border-primary/60 hover:text-primary md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white hover:border-primary/60 hover:text-primary md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -113,7 +113,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-white backdrop-blur-xl md:hidden">
+        <div className="border-t border-white/10 bg-[oklch(0.18_0.025_50)] backdrop-blur-xl md:hidden">
           <nav className="container-z flex flex-col py-4">
             {nav.map((n) => {
               const active = location.pathname === n.to;
@@ -126,7 +126,7 @@ export function Header() {
                     "rounded-lg px-3 py-3 text-base font-medium transition-colors",
                     active
                       ? "bg-primary/15 text-primary"
-                      : "text-foreground/80 hover:bg-muted hover:text-foreground",
+                      : "text-white/85 hover:bg-white/5 hover:text-white",
                   )}
                 >
                   {n.label}

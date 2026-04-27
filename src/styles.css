@@ -41,22 +41,22 @@
   --ink: oklch(0.2 0.025 50);
   --ink-soft: oklch(0.28 0.03 55);
 
-  --background: #ffffff;
-  --foreground: oklch(0.2 0.025 50);
+  --background: oklch(0.95 0.018 75); /* crème chaud (couleur de départ) */
+  --foreground: oklch(0.2 0.025 50); /* marron foncé pour le texte */
 
-  --card: #ffffff;
+  --card: oklch(0.97 0.012 75);
   --card-foreground: oklch(0.2 0.025 50);
-  --popover: #ffffff;
+  --popover: oklch(0.97 0.012 75);
   --popover-foreground: oklch(0.2 0.025 50);
 
   --primary: oklch(0.7 0.2 38); /* orange ZANDO */
-  --primary-foreground: #ffffff;
+  --primary-foreground: oklch(0.98 0.01 75);
 
-  --secondary: #ffffff;
+  --secondary: oklch(0.9 0.02 75);
   --secondary-foreground: oklch(0.2 0.025 50);
-  --muted: #ffffff;
+  --muted: oklch(0.92 0.018 75);
   --muted-foreground: oklch(0.45 0.03 55);
-  --accent: #ffffff;
+  --accent: oklch(0.88 0.05 50);
   --accent-foreground: oklch(0.2 0.025 50);
 
   --destructive: oklch(0.6 0.22 25);
@@ -91,7 +91,7 @@
     -webkit-font-smoothing: antialiased;
   }
   body {
-    background-color: #ffffff !important;
+    background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
