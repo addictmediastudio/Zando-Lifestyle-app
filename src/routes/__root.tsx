@@ -35,20 +35,20 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ZANDO — Boutique Lifestyle premium au Congo" },
+      { title: "ZANDO — Boutique Lifestyle premium au Congo Brazzaville 🇨🇬" },
       {
         name: "description",
         content:
           "Mode, cosmétiques et accessoires premium livrés à Pointe-Noire et Brazzaville. Votre style, partout avec vous.",
       },
       { name: "author", content: "ZANDO" },
-      { property: "og:title", content: "ZANDO — Boutique Lifestyle premium au Congo" },
+      { property: "og:title", content: "ZANDO — Boutique Lifestyle premium au Congo Brazzaville 🇨🇬" },
       {
         property: "og:description",
         content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "ZANDO — Boutique Lifestyle premium au Congo" },
+      { name: "twitter:title", content: "ZANDO — Boutique Lifestyle premium au Congo Brazzaville 🇨🇬" },
       {
         name: "description",
         content: "Découvrez des milliers de produits mode, beauté, accessoires à portée de clic.",

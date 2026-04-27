@@ -13,10 +13,10 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Découvrez la boutique lifestyle ZANDO : mode, cosmétiques, accessoires premium livrés rapidement au Congo.",
+          "Découvrez la boutique lifestyle ZANDO : mode, cosmétiques, accessoires premium livrés rapidement au Congo Brazzaville 🇨🇬.",
       },
       { property: "og:title", content: "ZANDO — Votre style, partout avec vous" },
-      { property: "og:description", content: "Boutique lifestyle premium au Congo." },
+      { property: "og:description", content: "Boutique lifestyle premium au Congo Brazzaville 🇨🇬." },
     ],
   }),
   component: HomePage,

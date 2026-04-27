@@ -169,7 +169,7 @@ function CheckoutPage() {
                 label="Téléphone *"
                 name="phone"
                 type="tel"
-                placeholder="+242 …"
+                placeholder="🇨🇬 +242 …"
                 required
                 defaultValue={defaults.phone}
               />
@@ -246,7 +246,7 @@ function CheckoutPage() {
             {loading ? "Traitement..." : "Valider la commande"}
           </button>
           <p className="mt-3 text-center text-xs text-background/60">
-            Besoin d'aide ? +242 05 545 70 46
+            Besoin d'aide ? 🇨🇬 +242 05 545 70 46
           </p>
         </aside>
       </form>

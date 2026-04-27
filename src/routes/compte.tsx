@@ -168,7 +168,7 @@ function RegisterForm() {
     <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-border p-6">
       <Field label="Nom complet" name="name" required placeholder="Jean Mavoungou" />
       <Field label="Email" name="email" type="email" required placeholder="vous@exemple.com" />
-      <Field label="Téléphone" name="phone" type="tel" required placeholder="+242 …" />
+      <Field label="Téléphone" name="phone" type="tel" required placeholder="🇨🇬 +242 …" />
       <PasswordField
         label="Mot de passe"
         name="password"

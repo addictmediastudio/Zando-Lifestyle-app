@@ -15,7 +15,7 @@ export function Footer() {
             height={128}
           />
           <p className="mt-4 text-sm text-background/70">
-            Votre style, partout avec vous. Boutique lifestyle premium au Congo.
+            Votre style, partout avec vous. Boutique lifestyle premium au Congo Brazzaville 🇨🇬.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-background/80">
             <li className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary" />
-              <span>+242 05 545 70 46</span>
+              <span>🇨🇬 +242 05 545 70 46</span>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-primary" />
@@ -58,7 +58,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-primary" />
-              <span>Pointe-Noire, Congo</span>
+              <span>Pointe-Noire, Congo Brazzaville 🇨🇬</span>
             </li>
           </ul>
         </div>

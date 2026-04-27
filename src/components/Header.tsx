@@ -38,7 +38,7 @@ export function Header() {
       <div className="hidden bg-primary/10 text-primary md:block">
         <div className="container-z flex h-8 items-center justify-between text-[11px] font-medium uppercase tracking-[0.18em]">
           <span>Livraison rapide à Pointe-Noire & Brazzaville</span>
-          <span className="opacity-80">+242 05 545 70 46</span>
+          <span className="opacity-80">🇨🇬 +242 05 545 70 46</span>
         </div>
       </div>
 
