@@ -92,7 +92,7 @@ function HomePage() {
         <div className="border-t border-background/10 bg-primary text-primary-foreground">
           <div className="container-z flex flex-wrap items-center justify-center gap-x-8 gap-y-2 py-3 text-sm font-medium">
             <span className="flex items-center gap-2">
-              <Truck className="h-4 w-4" /> Livraison rapide à Pointe-Noire
+              <Truck className="h-4 w-4" /> Livraison rapide à Pointe-Noire & Brazzaville
             </span>
             <span className="hidden h-1 w-1 rounded-full bg-primary-foreground/50 sm:block" />
             <span className="flex items-center gap-2">
