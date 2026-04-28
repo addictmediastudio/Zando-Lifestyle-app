@@ -42,13 +42,10 @@ function HomePage() {
               Nouvelle collection
             </span>
             <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] text-balance md:text-6xl lg:text-7xl">
-              Votre style,
-              <br />
-              <span className="text-primary">partout</span> avec vous.
+              Faites-vous livrer dans <span className="text-primary">Pointe-Noire</span> et <span className="text-primary">Brazzaville</span> <CongoFlag className="inline-block w-[0.8em] h-auto ml-1 -mt-2 align-middle rounded-[2px] shadow-md" />
             </h1>
             <p className="mt-5 max-w-md text-base text-background/70 md:text-lg">
-              Mode, cosmétiques et accessoires premium. Livraison rapide à Pointe-Noire et
-              Brazzaville <CongoFlag className="inline-block w-4 h-auto ml-1 mb-0.5 rounded-[1px] shadow-sm" />.
+              Découvrez notre collection de mode, cosmétiques et accessoires premium. Votre style, partout avec vous.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
